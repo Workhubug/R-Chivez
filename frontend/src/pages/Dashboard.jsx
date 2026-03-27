@@ -218,7 +218,10 @@ const Dashboard = () => {
           </div>
           
           <button
-            onClick={logout}
+            onClick={() => {
+              logout();
+              navigate('/');
+            }}
             data-testid="logout-btn"
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-400 hover:bg-white/5 hover:text-white transition-all"
           >

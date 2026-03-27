@@ -18,6 +18,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
@@ -123,6 +124,7 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
             <DialogContent className="bg-[#121214] border-white/10 text-white max-w-md">
               <DialogHeader>
                 <DialogTitle className="text-xl">Withdraw Funds</DialogTitle>
+                <DialogDescription className="text-zinc-500">Transfer your earnings to your preferred payment method</DialogDescription>
               </DialogHeader>
               
               <div className="space-y-5 mt-4">

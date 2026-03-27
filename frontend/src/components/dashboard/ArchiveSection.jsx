@@ -26,6 +26,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
@@ -155,6 +156,7 @@ const ArchiveSection = ({ files, onCreateFile, onSelectFile, onDeleteFile }) => 
             <DialogContent className="bg-[#121214] border-white/10 text-white max-w-md">
               <DialogHeader>
                 <DialogTitle className="text-xl">Upload New File</DialogTitle>
+                <DialogDescription className="text-zinc-500">Add a new track to your archive catalog</DialogDescription>
               </DialogHeader>
               <form onSubmit={handleSubmit} className="space-y-5 mt-4">
                 <div className="space-y-2">
