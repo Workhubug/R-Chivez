@@ -1,0 +1,85 @@
+{
+  "theme": "dark",
+  "archetype": "Archetype 5: Jewel & Luxury (Premium, Depth, Mystery) integrated with warm energetic gold/orange African-inspired glowing accents.",
+  "colors": {
+    "background": "#050505",
+    "surface": "#121214",
+    "surfaceHover": "#1C1C1F",
+    "primary": "#FF6B00",
+    "primaryGlow": "rgba(255, 107, 0, 0.4)",
+    "secondary": "#D4AF37",
+    "border": "rgba(255, 255, 255, 0.08)",
+    "textMain": "#FFFFFF",
+    "textMuted": "#A1A1AA",
+    "success": "#10B981"
+  },
+  "typography": {
+    "headingFont": "Outfit",
+    "bodyFont": "Manrope",
+    "heroHeadline": "text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-white",
+    "sectionTitle": "text-2xl font-medium tracking-tight text-white",
+    "bodyText": "text-sm text-zinc-400 leading-relaxed"
+  },
+  "layout": {
+    "dashboardGrid": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6",
+    "sidebar": "w-64 border-r border-white/5 bg-[#050505] hidden md:flex flex-col",
+    "floatingPanel": "fixed right-0 top-0 h-screen w-80 bg-black/60 backdrop-blur-2xl border-l border-white/10 shadow-[-10px_0_30px_rgba(0,0,0,0.5)] z-50",
+    "spacing": "Generous internal padding, p-6 or p-8 for cards."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] text-white font-medium rounded-full px-6 py-3 shadow-[0_0_15px_rgba(255,107,0,0.3)] hover:shadow-[0_0_25px_rgba(255,107,0,0.5)] transition-all",
+      "secondary": "bg-white/5 border border-white/10 text-white rounded-full px-6 py-3 hover:bg-white/10 transition-all",
+      "ghost": "text-zinc-400 hover:text-white transition-colors"
+    },
+    "cards": {
+      "metricCard": "bg-[#121214] border border-white/5 rounded-2xl p-6 hover:-translate-y-1 hover:border-[#FF6B00]/30 hover:shadow-[0_8px_30px_rgba(255,107,0,0.1)] transition-all duration-300",
+      "walletCard": "bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0B] border border-[#D4AF37]/20 rounded-2xl p-6 relative overflow-hidden"
+    },
+    "dragDropZone": "border-2 border-dashed border-white/20 rounded-2xl p-12 flex flex-col items-center justify-center hover:border-[#FF6B00]/50 hover:bg-[#FF6B00]/5 transition-all bg-[#121214]",
+    "toggles": "radix/shadcn switch customized with peer-data-[state=checked]:bg-[#FF6B00]"
+  },
+  "media": {
+    "heroBackground": {
+      "url": "https://images.pexels.com/photos/1747/light-abstract-fire-heat.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Abstract warm orange and gold glow used as a highly blurred background blob for the hero section."
+    },
+    "artistProfile": {
+      "url": "https://images.unsplash.com/photo-1759771716152-565fca0fb35e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwyfHxibGFjayUyMG1hbGUlMjBtdXNpY2lhbiUyMHBvcnRyYWl0JTIwc3R1ZGlvJTIwbGlnaHRpbmd8ZW58MHx8fHwxNzc0NTU5NDU3fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Profile picture of the artist in the dashboard header/sidebar."
+    },
+    "albumCovers": [
+      "https://images.unsplash.com/photo-1616663395731-d70897355fd8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHx2aW55bCUyMHJlY29yZCUyMGFsYnVtJTIwY292ZXJ8ZW58MHx8fHwxNzc0NTU5NDYzfDA&ixlib=rb-4.1.0&q=85",
+      "https://images.pexels.com/photos/908965/pexels-photo-908965.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    ],
+    "dspLogos": [
+      {
+        "name": "Spotify",
+        "url": "https://images.unsplash.com/photo-1551817958-795f9440ce4d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwxfHxzcG90aWZ5JTIwYXBwbGUlMjBtdXNpYyUyMGxvZ29zJTIwdHJhbnNwYXJlbnR8ZW58MHx8fHwxNzc0NTU5NDU2fDA&ixlib=rb-4.1.0&q=85"
+      },
+      {
+        "name": "Apple Music",
+        "url": "https://images.unsplash.com/photo-1581315628079-f093bb040803?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHw0fHxzcG90aWZ5JTIwYXBwbGUlMjBtdXNpYyUyMGxvZ29zJTIwdHJhbnNwYXJlbnR8ZW58MHx8fHwxNzc0NTU5NDU2fDA&ixlib=rb-4.1.0&q=85"
+      }
+    ],
+    "analyticsMap": {
+       "url": "https://images.pexels.com/photos/4079878/pexels-photo-4079878.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+       "description": "Used as a subtle background visual for the African analytics map section."
+    }
+  },
+  "motion": {
+    "hover": "transition-all duration-300 ease-out",
+    "panelSlide": "framer-motion slide in from right for the floating file interaction panel",
+    "chartDraw": "Recharts slow animation for line graphs"
+  },
+  "instructions_to_main_agent": [
+    "Build the dashboard using a fixed left sidebar and a main scrollable area.",
+    "The Hero Section should use the abstract gold/orange glow image as a severely blurred background blob behind the main text (opacity-20 or opacity-30).",
+    "Implement the 'Archive System' with a drag & drop zone. Ensure the right-side floating panel (File Interaction) uses high-end glassmorphism (`backdrop-blur-2xl`, `bg-black/60`).",
+    "Install and use Phosphor Icons (`@phosphor-icons/react`) for sharp, high-end iconography.",
+    "For the Analytics section, use Recharts. Make the lines/bars use the #FF6B00 and #D4AF37 colors.",
+    "All interactive elements must include `data-testid` attributes (e.g., `data-testid='upload-files-btn'`).",
+    "Make sure forms (like DSP selection and licensing) use customized Shadcn UI components with dark theme overrides.",
+    "Do not use generic Shadcn Card component if it restricts custom borders/hover states. Build the metric cards manually with `div` for the glowing hover effect."
+  ]
+}
