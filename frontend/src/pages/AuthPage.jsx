@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MusicNote, Eye, EyeSlash, Envelope, Lock, User, ArrowLeft } from "@phosphor-icons/react";
+import { Eye, EyeSlash, Envelope, Lock, User, ArrowLeft } from "@phosphor-icons/react";
 import { useAuth } from "@/App";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import RChivezLogo from "@/components/RChivezLogo";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] flex">
+    <div className="min-h-screen bg-[#0F0D1A] flex">
       {/* Left Side - Form */}
       <div className="flex-1 flex items-center justify-center p-8">
         <motion.div
@@ -73,14 +74,9 @@ const AuthPage = () => {
           </button>
 
           {/* Logo */}
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF6B00] to-[#D4AF37] flex items-center justify-center">
-              <MusicNote size={28} weight="fill" className="text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-semibold">Ziki Tunes</h1>
-              <p className="text-sm text-zinc-500">Artist Admin Portal</p>
-            </div>
+          <div className="mb-8">
+            <RChivezLogo size="lg" />
+            <p className="text-sm text-zinc-500 mt-2">Music IP Archive Platform</p>
           </div>
 
           {/* Title */}
@@ -89,8 +85,8 @@ const AuthPage = () => {
           </h2>
           <p className="text-zinc-500 mb-8">
             {isLogin 
-              ? "Sign in to access your dashboard" 
-              : "Start managing your music career today"
+              ? "Sign in to access your archive" 
+              : "Start protecting your music legacy today"
             }
           </p>
 
@@ -107,7 +103,7 @@ const AuthPage = () => {
                     placeholder="Your stage name"
                     value={formData.artistName}
                     onChange={(e) => setFormData({ ...formData, artistName: e.target.value })}
-                    className="pl-12 h-12 bg-[#121214] border-white/10 focus:border-[#FF6B00] rounded-xl"
+                    className="pl-12 h-12 bg-[#251E49] border-[#8B5CF6]/20 focus:border-[#00BFFF] rounded-xl"
                     data-testid="auth-artist-name-input"
                   />
                 </div>
@@ -124,7 +120,7 @@ const AuthPage = () => {
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="pl-12 h-12 bg-[#121214] border-white/10 focus:border-[#FF6B00] rounded-xl"
+                  className="pl-12 h-12 bg-[#251E49] border-[#8B5CF6]/20 focus:border-[#00BFFF] rounded-xl"
                   data-testid="auth-email-input"
                   required
                 />
@@ -141,7 +137,7 @@ const AuthPage = () => {
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="pl-12 pr-12 h-12 bg-[#121214] border-white/10 focus:border-[#FF6B00] rounded-xl"
+                  className="pl-12 pr-12 h-12 bg-[#251E49] border-[#8B5CF6]/20 focus:border-[#00BFFF] rounded-xl"
                   data-testid="auth-password-input"
                   required
                   minLength={6}
@@ -160,7 +156,7 @@ const AuthPage = () => {
               type="submit"
               disabled={loading}
               data-testid="auth-submit-btn"
-              className="w-full h-12 bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] text-white font-medium rounded-xl shadow-[0_0_20px_rgba(255,107,0,0.3)] hover:shadow-[0_0_30px_rgba(255,107,0,0.5)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full h-12 bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] text-white font-medium rounded-xl shadow-[0_0_20px_rgba(0,191,255,0.3)] hover:shadow-[0_0_30px_rgba(0,191,255,0.5)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -176,7 +172,7 @@ const AuthPage = () => {
             <button
               onClick={() => setIsLogin(!isLogin)}
               data-testid="auth-toggle-btn"
-              className="text-[#FF6B00] hover:text-[#D4AF37] transition-colors font-medium"
+              className="text-[#00BFFF] hover:text-[#8B5CF6] transition-colors font-medium"
             >
               {isLogin ? "Sign up" : "Sign in"}
             </button>
@@ -186,9 +182,9 @@ const AuthPage = () => {
 
       {/* Right Side - Visual */}
       <div className="hidden lg:flex flex-1 items-center justify-center p-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00]/10 to-[#D4AF37]/5" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#FF6B00]/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-[#D4AF37]/20 rounded-full blur-[100px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#8B5CF6]/10 to-[#00BFFF]/5" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#8B5CF6]/20 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-[#00BFFF]/20 rounded-full blur-[100px]" />
         
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -196,29 +192,37 @@ const AuthPage = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative z-10 text-center max-w-lg"
         >
-          <div className="w-24 h-24 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-[#FF6B00] to-[#D4AF37] flex items-center justify-center shadow-[0_0_60px_rgba(255,107,0,0.4)]">
-            <MusicNote size={48} weight="fill" className="text-white" />
+          {/* Animated Vinyl */}
+          <div className="w-32 h-32 mx-auto mb-8">
+            <svg viewBox="0 0 200 200" className="w-full h-full animate-spin" style={{ animationDuration: '6s' }}>
+              <circle cx="100" cy="100" r="95" fill="#4A3A79" />
+              <circle cx="100" cy="100" r="80" fill="#6F5BB2" />
+              <circle cx="100" cy="100" r="65" fill="#8C7EDC" />
+              <circle cx="100" cy="100" r="50" fill="#00BFFF" />
+              <circle cx="100" cy="100" r="35" fill="#8B5CF6" />
+              <circle cx="100" cy="100" r="15" fill="white" />
+            </svg>
           </div>
           
           <h2 className="text-3xl font-semibold mb-4">
-            Your Music, Your Rules
+            Your Music, Forever Secured
           </h2>
           <p className="text-zinc-400 leading-relaxed">
-            Join the premier platform for African artists. Archive your catalog, distribute to global platforms, and monetize through licensing.
+            Join the premier platform for African artists. Archive your masters, establish ownership chains, and monetize through global distribution.
           </p>
 
           <div className="flex justify-center gap-8 mt-10">
             <div className="text-center">
-              <p className="text-2xl font-bold text-[#FF6B00]">50K+</p>
+              <p className="text-2xl font-bold text-[#00BFFF]">50K+</p>
               <p className="text-sm text-zinc-500">Artists</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-[#D4AF37]">2M+</p>
+              <p className="text-2xl font-bold text-[#8B5CF6]">2M+</p>
               <p className="text-sm text-zinc-500">Tracks</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-bold text-[#10B981]">$10M+</p>
-              <p className="text-sm text-zinc-500">Earned</p>
+              <p className="text-sm text-zinc-500">Distributed</p>
             </div>
           </div>
         </motion.div>

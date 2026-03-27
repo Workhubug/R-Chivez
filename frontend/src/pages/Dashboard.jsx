@@ -10,13 +10,13 @@ import {
   Wallet,
   ChartLineUp,
   SignOut,
-  MusicNote,
-  Plus,
-  CaretRight,
+  Shield,
+  FileText,
   Gear
 } from "@phosphor-icons/react";
 import { useAuth, API } from "@/App";
 import { toast } from "sonner";
+import RChivezLogo from "@/components/RChivezLogo";
 
 // Dashboard Sections
 import DashboardHome from "@/components/dashboard/DashboardHome";
@@ -97,10 +97,10 @@ const Dashboard = () => {
     try {
       const response = await axios.post(`${API}/files`, fileData, authHeaders);
       setFiles([...files, response.data]);
-      toast.success("File uploaded successfully!");
+      toast.success("Asset uploaded successfully!");
       return response.data;
     } catch (error) {
-      toast.error("Failed to upload file");
+      toast.error("Failed to upload asset");
       throw error;
     }
   };
@@ -113,10 +113,10 @@ const Dashboard = () => {
       if (selectedFile?.id === fileId) {
         setSelectedFile(response.data);
       }
-      toast.success("File updated!");
+      toast.success("Asset updated!");
       return response.data;
     } catch (error) {
-      toast.error("Failed to update file");
+      toast.error("Failed to update asset");
       throw error;
     }
   };
@@ -129,9 +129,9 @@ const Dashboard = () => {
       if (selectedFile?.id === fileId) {
         setSelectedFile(null);
       }
-      toast.success("File deleted");
+      toast.success("Asset deleted");
     } catch (error) {
-      toast.error("Failed to delete file");
+      toast.error("Failed to delete asset");
     }
   };
 
@@ -165,20 +165,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] flex">
+    <div className="min-h-screen bg-[#0F0D1A] flex">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-white/5 bg-[#050505] hidden md:flex flex-col fixed h-screen">
+      <aside className="w-64 border-r border-[#8B5CF6]/10 bg-[#0F0D1A] hidden md:flex flex-col fixed h-screen">
         {/* Logo */}
-        <div className="p-6 border-b border-white/5">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF6B00] to-[#D4AF37] flex items-center justify-center">
-              <MusicNote size={24} weight="fill" className="text-white" />
-            </div>
-            <div>
-              <h1 className="text-lg font-semibold">Ziki Tunes</h1>
-              <p className="text-xs text-zinc-500">Artist Portal</p>
-            </div>
-          </div>
+        <div className="p-6 border-b border-[#8B5CF6]/10">
+          <RChivezLogo size="md" />
         </div>
 
         {/* Navigation */}
@@ -194,8 +186,8 @@ const Dashboard = () => {
                 data-testid={`nav-${item.label.toLowerCase()}`}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                   active
-                    ? "bg-[#FF6B00]/10 text-[#FF6B00] border-l-3 border-[#FF6B00]"
-                    : "text-zinc-400 hover:bg-white/5 hover:text-white"
+                    ? "bg-[#00BFFF]/10 text-[#00BFFF] border-l-3 border-[#00BFFF]"
+                    : "text-zinc-400 hover:bg-[#8B5CF6]/10 hover:text-white"
                 }`}
               >
                 <Icon size={22} weight={active ? "fill" : "regular"} />
@@ -206,9 +198,9 @@ const Dashboard = () => {
         </nav>
 
         {/* User Section */}
-        <div className="p-4 border-t border-white/5">
-          <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#121214] mb-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF6B00] to-[#D4AF37] flex items-center justify-center text-white font-medium">
+        <div className="p-4 border-t border-[#8B5CF6]/10">
+          <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#251E49] mb-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00BFFF] to-[#8B5CF6] flex items-center justify-center text-white font-medium">
               {user?.artist_name?.charAt(0) || "A"}
             </div>
             <div className="flex-1 min-w-0">
@@ -223,7 +215,7 @@ const Dashboard = () => {
               navigate('/');
             }}
             data-testid="logout-btn"
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-400 hover:bg-white/5 hover:text-white transition-all"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-400 hover:bg-[#8B5CF6]/10 hover:text-white transition-all"
           >
             <SignOut size={22} />
             <span className="font-medium">Log Out</span>

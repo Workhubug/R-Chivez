@@ -66,7 +66,7 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
   const getStatusIcon = (status) => {
     switch (status) {
       case "completed": return <Check size={16} className="text-[#10B981]" weight="bold" />;
-      case "pending": return <Clock size={16} className="text-[#FF6B00]" />;
+      case "pending": return <Clock size={16} className="text-[#00BFFF]" />;
       case "failed": return <X size={16} className="text-red-500" weight="bold" />;
       default: return null;
     }
@@ -75,7 +75,7 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
   const getStatusColor = (status) => {
     switch (status) {
       case "completed": return "text-[#10B981] bg-[#10B981]/10";
-      case "pending": return "text-[#FF6B00] bg-[#FF6B00]/10";
+      case "pending": return "text-[#00BFFF] bg-[#00BFFF]/10";
       case "failed": return "text-red-500 bg-red-500/10";
       default: return "text-zinc-400 bg-zinc-800";
     }
@@ -85,7 +85,7 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
     <div className="space-y-6" data-testid="wallet-section">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Wallet</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Royalty Entitlement & Wallet</h1>
         <p className="text-zinc-500 mt-1">Manage your earnings and withdrawals</p>
       </div>
 
@@ -93,19 +93,19 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0B] border border-[#D4AF37]/20 rounded-3xl p-8 relative overflow-hidden"
+        className="bg-gradient-to-br from-[#251E49] to-[#1A1528] border border-[#8B5CF6]/20 rounded-3xl p-8 relative overflow-hidden"
       >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#FF6B00]/10 rounded-full blur-[80px]" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B5CF6]/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#00BFFF]/10 rounded-full blur-[80px]" />
         
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center">
-              <Wallet size={32} className="text-[#D4AF37]" weight="fill" />
+            <div className="w-14 h-14 rounded-2xl bg-[#8B5CF6]/10 flex items-center justify-center">
+              <Wallet size={32} className="text-[#8B5CF6]" weight="fill" />
             </div>
             <div>
               <p className="text-zinc-400">Available Balance</p>
-              <p className="text-4xl font-bold text-[#D4AF37]" data-testid="wallet-balance">
+              <p className="text-4xl font-bold text-[#8B5CF6]" data-testid="wallet-balance">
                 ${(user?.wallet_balance || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </p>
             </div>
@@ -115,13 +115,13 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
             <DialogTrigger asChild>
               <button
                 data-testid="withdraw-btn"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] text-white font-medium rounded-xl px-6 py-3 shadow-[0_0_20px_rgba(255,107,0,0.3)] hover:shadow-[0_0_30px_rgba(255,107,0,0.5)] transition-all"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] text-white font-medium rounded-xl px-6 py-3 shadow-[0_0_20px_rgba(0,191,255,0.3)] hover:shadow-[0_0_30px_rgba(0,191,255,0.5)] transition-all"
               >
                 <ArrowUp size={20} weight="bold" />
                 Withdraw Funds
               </button>
             </DialogTrigger>
-            <DialogContent className="bg-[#121214] border-white/10 text-white max-w-md">
+            <DialogContent className="bg-[#1A1528] border-[#8B5CF6]/20 text-white max-w-md">
               <DialogHeader>
                 <DialogTitle className="text-xl">Withdraw Funds</DialogTitle>
                 <DialogDescription className="text-zinc-500">Transfer your earnings to your preferred payment method</DialogDescription>
@@ -138,7 +138,7 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
                       value={withdrawAmount}
                       onChange={(e) => setWithdrawAmount(e.target.value)}
                       placeholder="0.00"
-                      className="pl-8 h-12 bg-[#0A0A0B] border-white/10 focus:border-[#FF6B00] text-lg"
+                      className="pl-8 h-12 bg-[#0F0D1A] border-[#8B5CF6]/20 focus:border-[#00BFFF] text-lg"
                       data-testid="withdraw-amount-input"
                       max={user?.wallet_balance || 0}
                     />
@@ -162,21 +162,21 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
                           data-testid={`method-${method.id}`}
                           className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all ${
                             isSelected
-                              ? "border-[#FF6B00] bg-[#FF6B00]/10"
-                              : "border-white/10 hover:border-white/20"
+                              ? "border-[#00BFFF] bg-[#00BFFF]/10"
+                              : "border-[#8B5CF6]/20 hover:border-[#8B5CF6]/40"
                           }`}
                         >
                           <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                            isSelected ? "bg-[#FF6B00]/20" : "bg-zinc-800"
+                            isSelected ? "bg-[#00BFFF]/20" : "bg-zinc-800"
                           }`}>
-                            <Icon size={22} className={isSelected ? "text-[#FF6B00]" : "text-zinc-400"} />
+                            <Icon size={22} className={isSelected ? "text-[#00BFFF]" : "text-zinc-400"} />
                           </div>
                           <div className="flex-1 text-left">
                             <p className="font-medium">{method.name}</p>
                             <p className="text-sm text-zinc-500">{method.description}</p>
                           </div>
                           {isSelected && (
-                            <Check size={20} className="text-[#FF6B00]" weight="bold" />
+                            <Check size={20} className="text-[#00BFFF]" weight="bold" />
                           )}
                         </button>
                       );
@@ -188,7 +188,7 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
                   onClick={handleWithdraw}
                   disabled={withdrawing || !withdrawAmount || !withdrawMethod}
                   data-testid="confirm-withdraw-btn"
-                  className="w-full h-12 bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] text-white font-medium rounded-xl shadow-[0_0_15px_rgba(255,107,0,0.3)] hover:shadow-[0_0_25px_rgba(255,107,0,0.5)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full h-12 bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] text-white font-medium rounded-xl shadow-[0_0_15px_rgba(0,191,255,0.3)] hover:shadow-[0_0_25px_rgba(0,191,255,0.5)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {withdrawing ? (
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -206,7 +206,7 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
       </motion.div>
 
       {/* Transactions */}
-      <div className="bg-[#121214] border border-white/5 rounded-2xl p-6">
+      <div className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-6">
         <h2 className="text-lg font-semibold mb-4">Recent Transactions</h2>
         
         {transactions.length === 0 ? (
@@ -220,7 +220,6 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
           <div className="space-y-1">
             {transactions.map((tx, index) => {
               const isEarning = tx.transaction_type === "earning";
-              const isWithdrawal = tx.transaction_type === "withdrawal";
               
               return (
                 <motion.div
@@ -229,15 +228,15 @@ const WalletSection = ({ user, transactions, onWithdraw }) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.03 }}
                   data-testid={`transaction-${index}`}
-                  className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors"
+                  className="flex items-center gap-4 p-4 rounded-xl hover:bg-[#8B5CF6]/5 transition-colors"
                 >
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                    isEarning ? "bg-[#10B981]/10" : "bg-[#FF6B00]/10"
+                    isEarning ? "bg-[#10B981]/10" : "bg-[#00BFFF]/10"
                   }`}>
                     {isEarning ? (
                       <ArrowDown size={20} className="text-[#10B981]" />
                     ) : (
-                      <ArrowUp size={20} className="text-[#FF6B00]" />
+                      <ArrowUp size={20} className="text-[#00BFFF]" />
                     )}
                   </div>
                   

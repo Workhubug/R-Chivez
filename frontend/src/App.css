@@ -1,8 +1,8 @@
-/* Ziki Tunes Artist Admin - Main Styles */
+/* R-CHIVEZ Artist Admin - Main Styles */
 
-.ziki-app {
+.rchivez-app {
   min-height: 100vh;
-  background-color: #050505;
+  background: linear-gradient(180deg, #0F0D1A 0%, #1A1528 100%);
 }
 
 /* Hero Section Background */
@@ -18,8 +18,20 @@
   right: -30%;
   width: 80%;
   height: 150%;
-  background: radial-gradient(circle, rgba(255, 107, 0, 0.15) 0%, rgba(212, 175, 55, 0.08) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0, 191, 255, 0.08) 40%, transparent 70%);
   filter: blur(80px);
+  pointer-events: none;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -20%;
+  width: 60%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 191, 255, 0.1) 0%, transparent 50%);
+  filter: blur(60px);
   pointer-events: none;
 }
 
@@ -36,14 +48,14 @@
 }
 
 .sidebar-nav-item:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(139, 92, 246, 0.1);
   color: #FFFFFF;
 }
 
 .sidebar-nav-item.active {
-  background: rgba(255, 107, 0, 0.1);
-  color: #FF6B00;
-  border-left: 3px solid #FF6B00;
+  background: rgba(0, 191, 255, 0.1);
+  color: #00BFFF;
+  border-left: 3px solid #00BFFF;
 }
 
 /* File grid */
@@ -55,8 +67,8 @@
 
 /* File card */
 .file-card {
-  background: #121214;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #251E49;
+  border: 1px solid rgba(139, 92, 246, 0.2);
   border-radius: 16px;
   padding: 16px;
   cursor: pointer;
@@ -65,13 +77,13 @@
 
 .file-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 107, 0, 0.3);
-  box-shadow: 0 8px 30px rgba(255, 107, 0, 0.1);
+  border-color: rgba(0, 191, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 191, 255, 0.1);
 }
 
 .file-card.selected {
-  border-color: #FF6B00;
-  box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
+  border-color: #00BFFF;
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
 }
 
 /* Status badges */
@@ -84,16 +96,32 @@
 }
 
 .badge-distributed {
-  background: rgba(59, 130, 246, 0.1);
-  color: #3B82F6;
+  background: rgba(0, 191, 255, 0.1);
+  color: #00BFFF;
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 12px;
 }
 
 .badge-licensed {
-  background: rgba(212, 175, 55, 0.1);
-  color: #D4AF37;
+  background: rgba(139, 92, 246, 0.1);
+  color: #8B5CF6;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.badge-pending {
+  background: rgba(251, 191, 36, 0.1);
+  color: #FBBF24;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.badge-conflict {
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 12px;
@@ -101,8 +129,8 @@
 
 /* DSP cards */
 .dsp-card {
-  background: #121214;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #251E49;
+  border: 1px solid rgba(139, 92, 246, 0.15);
   border-radius: 12px;
   padding: 16px;
   cursor: pointer;
@@ -110,18 +138,18 @@
 }
 
 .dsp-card:hover {
-  background: #1C1C1F;
+  background: #322A5C;
 }
 
 .dsp-card.selected {
-  border-color: #FF6B00;
-  background: rgba(255, 107, 0, 0.05);
+  border-color: #00BFFF;
+  background: rgba(0, 191, 255, 0.05);
 }
 
 /* Wallet card */
 .wallet-card {
-  background: linear-gradient(135deg, #1A1A1A 0%, #0A0A0B 100%);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: linear-gradient(135deg, #251E49 0%, #1A1528 100%);
+  border: 1px solid rgba(139, 92, 246, 0.3);
   border-radius: 20px;
   padding: 24px;
   position: relative;
@@ -135,14 +163,14 @@
   right: -30%;
   width: 100%;
   height: 200%;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle, rgba(0, 191, 255, 0.1) 0%, transparent 50%);
   pointer-events: none;
 }
 
 /* Chart container */
 .chart-container {
-  background: #121214;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #251E49;
+  border: 1px solid rgba(139, 92, 246, 0.15);
   border-radius: 16px;
   padding: 24px;
 }
@@ -153,16 +181,34 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.1);
   transition: background 0.2s ease;
 }
 
 .transaction-item:hover {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(139, 92, 246, 0.05);
 }
 
 .transaction-item:last-child {
   border-bottom: none;
+}
+
+/* Form sections */
+.form-section {
+  background: rgba(37, 30, 73, 0.5);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.form-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #00BFFF;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Responsive adjustments */
@@ -171,3 +217,51 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Vinyl record logo */
+.vinyl-logo {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.vinyl-logo .record {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #4A3A79, #6F5BB2, #8C7EDC, #00BFFF, #4A3A79);
+  position: relative;
+}
+
+.vinyl-logo .record::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* Soundwave animation bars */
+.soundwave-bars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 20px;
+}
+
+.soundwave-bars span {
+  width: 3px;
+  background: linear-gradient(180deg, #00BFFF, #8B5CF6);
+  border-radius: 2px;
+  animation: soundwave 0.6s ease-in-out infinite;
+}
+
+.soundwave-bars span:nth-child(1) { height: 8px; animation-delay: 0s; }
+.soundwave-bars span:nth-child(2) { height: 16px; animation-delay: 0.1s; }
+.soundwave-bars span:nth-child(3) { height: 12px; animation-delay: 0.2s; }
+.soundwave-bars span:nth-child(4) { height: 20px; animation-delay: 0.3s; }
+.soundwave-bars span:nth-child(5) { height: 10px; animation-delay: 0.4s; }

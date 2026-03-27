@@ -20,7 +20,7 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("ziki_token"));
+  const [token, setToken] = useState(localStorage.getItem("rchivez_token"));
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
           });
           setUser(response.data);
         } catch (error) {
-          localStorage.removeItem("ziki_token");
+          localStorage.removeItem("rchivez_token");
           setToken(null);
         }
       }
@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     const response = await axios.post(`${API}/auth/login`, { email, password });
     const { access_token, user: userData } = response.data;
-    localStorage.setItem("ziki_token", access_token);
+    localStorage.setItem("rchivez_token", access_token);
     setToken(access_token);
     setUser(userData);
     toast.success("Welcome back!");
@@ -58,7 +58,7 @@ const AuthProvider = ({ children }) => {
       artist_name: artistName
     });
     const { access_token, user: userData } = response.data;
-    localStorage.setItem("ziki_token", access_token);
+    localStorage.setItem("rchivez_token", access_token);
     setToken(access_token);
     setUser(userData);
     toast.success("Account created successfully!");
@@ -66,7 +66,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("ziki_token");
+    localStorage.removeItem("rchivez_token");
     setToken(null);
     setUser(null);
     toast.info("Logged out");
@@ -89,8 +89,8 @@ const ProtectedRoute = ({ children }) => {
   
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#050505] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#FF6B00] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-[#0F0D1A] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#00BFFF] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -104,7 +104,7 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   return (
-    <div className="ziki-app dark">
+    <div className="rchivez-app dark">
       <BrowserRouter>
         <AuthProvider>
           <Routes>
@@ -123,8 +123,8 @@ function App() {
             position="top-right" 
             toastOptions={{
               style: {
-                background: '#121214',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: '#251E49',
+                border: '1px solid rgba(139, 92, 246, 0.2)',
                 color: '#fff'
               }
             }}

@@ -10,9 +10,13 @@ import {
   Broadcast,
   Certificate,
   ArrowRight,
-  Play
+  Shield,
+  Link,
+  FileText,
+  Users
 } from "@phosphor-icons/react";
 import { useAuth } from "@/App";
+import RChivezLogo from "@/components/RChivezLogo";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -21,51 +25,66 @@ const LandingPage = () => {
   const features = [
     {
       icon: <Archive size={28} weight="duotone" />,
-      title: "Archive & Preserve",
-      description: "Securely store and organize your music catalog with full ownership rights."
+      title: "Master Archive & Asset Vault",
+      description: "Secure, permanent storage for WAV, FLAC, stems, cover art, and music videos."
+    },
+    {
+      icon: <Shield size={28} weight="duotone" />,
+      title: "Rights Ownership Registry",
+      description: "Establish verifiable ownership chains with territory and duration controls."
     },
     {
       icon: <Broadcast size={28} weight="duotone" />,
-      title: "Distribute Globally",
-      description: "Push to Spotify, Apple Music, Boomplay and 150+ platforms with one click."
+      title: "Distribution Partner Sync",
+      description: "Align archive rights data with distributed catalogs across 150+ platforms."
     },
     {
       icon: <Certificate size={28} weight="duotone" />,
-      title: "License & Monetize",
-      description: "Set sync, NFT, and commercial licensing terms. Earn from every use."
+      title: "Licensing Engine",
+      description: "Enable monetization with sync, NFT, and commercial licensing options."
+    },
+    {
+      icon: <Users size={28} weight="duotone" />,
+      title: "Royalty Split Engine",
+      description: "Define revenue distribution between artists, producers, and labels."
+    },
+    {
+      icon: <FileText size={28} weight="duotone" />,
+      title: "Contract Vault",
+      description: "Secure legal documentation with recording agreements and split sheets."
+    },
+    {
+      icon: <Link size={28} weight="duotone" />,
+      title: "Metadata Standardization",
+      description: "Auto-clean ISRC, UPC, contributor roles with Afro-centric genre taxonomy."
     },
     {
       icon: <ChartLineUp size={28} weight="duotone" />,
-      title: "Analytics & Insights",
-      description: "Track streams, revenue, and audience growth across Africa and beyond."
+      title: "Royalty Transparency",
+      description: "Revenue dashboards with real-time reporting and audit trails."
     }
   ];
 
   const stats = [
     { value: "50K+", label: "Active Artists" },
-    { value: "2M+", label: "Tracks Distributed" },
-    { value: "$10M+", label: "Revenue Generated" },
-    { value: "150+", label: "Platforms" }
+    { value: "2M+", label: "Tracks Archived" },
+    { value: "$10M+", label: "Revenue Distributed" },
+    { value: "150+", label: "DSP Partners" }
   ];
 
   return (
-    <div className="min-h-screen bg-[#050505] overflow-hidden">
+    <div className="min-h-screen bg-[#0F0D1A] overflow-hidden">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0F0D1A]/80 backdrop-blur-xl border-b border-[#8B5CF6]/10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF6B00] to-[#D4AF37] flex items-center justify-center">
-              <MusicNote size={24} weight="fill" className="text-white" />
-            </div>
-            <span className="text-xl font-semibold tracking-tight">Ziki Tunes</span>
-          </div>
+          <RChivezLogo size="md" />
           
           <div className="flex items-center gap-4">
             {user ? (
               <button
                 onClick={() => navigate('/dashboard')}
                 data-testid="nav-dashboard-btn"
-                className="bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] text-white font-medium rounded-full px-6 py-2.5 shadow-[0_0_15px_rgba(255,107,0,0.3)] hover:shadow-[0_0_25px_rgba(255,107,0,0.5)] transition-all"
+                className="bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] text-white font-medium rounded-full px-6 py-2.5 shadow-[0_0_15px_rgba(0,191,255,0.3)] hover:shadow-[0_0_25px_rgba(0,191,255,0.5)] transition-all"
               >
                 Dashboard
               </button>
@@ -81,7 +100,7 @@ const LandingPage = () => {
                 <button
                   onClick={() => navigate('/auth?mode=register')}
                   data-testid="nav-signup-btn"
-                  className="bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] text-white font-medium rounded-full px-6 py-2.5 shadow-[0_0_15px_rgba(255,107,0,0.3)] hover:shadow-[0_0_25px_rgba(255,107,0,0.5)] transition-all"
+                  className="bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] text-white font-medium rounded-full px-6 py-2.5 shadow-[0_0_15px_rgba(0,191,255,0.3)] hover:shadow-[0_0_25px_rgba(0,191,255,0.5)] transition-all"
                 >
                   Get Started
                 </button>
@@ -100,37 +119,37 @@ const LandingPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF6B00]/10 border border-[#FF6B00]/20 mb-8">
-              <span className="w-2 h-2 rounded-full bg-[#FF6B00] animate-pulse" />
-              <span className="text-sm text-[#FF6B00]">Afro-centric Music Ecosystem</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 mb-8">
+              <span className="w-2 h-2 rounded-full bg-[#00BFFF] animate-pulse" />
+              <span className="text-sm text-[#00BFFF]">Afro-centric Music IP Platform</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-white leading-tight mb-6">
-              Control Your Music.{" "}
-              <span className="bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] bg-clip-text text-transparent">
+              Archive Your Music.{" "}
+              <span className="bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] bg-clip-text text-transparent">
                 Own Your Rights.
               </span>{" "}
-              Monetize Everything.
+              Monetize Forever.
             </h1>
             
             <p className="text-lg text-zinc-400 mb-10 max-w-xl leading-relaxed">
-              The complete platform for African artists to archive, distribute, and license their music globally. Take control of your creative legacy.
+              The complete platform for African artists to securely archive masters, establish ownership chains, and monetize through licensing and distribution.
             </p>
             
             <div className="flex flex-wrap gap-4">
               <button
-                onClick={() => navigate(user ? '/dashboard?upload=true' : '/auth?mode=register')}
+                onClick={() => navigate(user ? '/dashboard/archive' : '/auth?mode=register')}
                 data-testid="hero-upload-btn"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] text-white font-medium rounded-full px-8 py-4 shadow-[0_0_20px_rgba(255,107,0,0.4)] hover:shadow-[0_0_35px_rgba(255,107,0,0.6)] transition-all text-lg"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] text-white font-medium rounded-full px-8 py-4 shadow-[0_0_20px_rgba(0,191,255,0.4)] hover:shadow-[0_0_35px_rgba(0,191,255,0.6)] transition-all text-lg"
               >
                 <CloudArrowUp size={24} weight="bold" />
-                Upload Files
+                Upload Masters
               </button>
               
               <button
                 onClick={() => navigate(user ? '/dashboard' : '/auth')}
                 data-testid="hero-dashboard-btn"
-                className="inline-flex items-center gap-3 bg-white/5 border border-white/10 text-white font-medium rounded-full px-8 py-4 hover:bg-white/10 transition-all text-lg"
+                className="inline-flex items-center gap-3 bg-white/5 border border-[#8B5CF6]/30 text-white font-medium rounded-full px-8 py-4 hover:bg-white/10 transition-all text-lg"
               >
                 Go to Dashboard
                 <ArrowRight size={20} weight="bold" />
@@ -147,33 +166,46 @@ const LandingPage = () => {
           >
             <div className="relative">
               {/* Analytics Card */}
-              <div className="absolute -top-4 -left-4 w-64 bg-[#121214]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl">
+              <div className="absolute -top-4 -left-4 w-64 bg-[#251E49]/90 backdrop-blur-xl border border-[#8B5CF6]/20 rounded-2xl p-4 shadow-2xl">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#FF6B00]/10 flex items-center justify-center">
-                    <ChartLineUp size={20} className="text-[#FF6B00]" weight="fill" />
+                  <div className="w-10 h-10 rounded-xl bg-[#00BFFF]/10 flex items-center justify-center">
+                    <ChartLineUp size={20} className="text-[#00BFFF]" weight="fill" />
                   </div>
                   <div>
                     <p className="text-xs text-zinc-500">Total Streams</p>
                     <p className="text-lg font-semibold">2.4M</p>
                   </div>
                 </div>
-                <div className="h-12 bg-gradient-to-r from-[#FF6B00]/20 to-transparent rounded-lg" />
+                <div className="h-12 bg-gradient-to-r from-[#00BFFF]/20 to-transparent rounded-lg" />
               </div>
 
-              {/* Main Image */}
-              <div className="w-full aspect-square rounded-3xl overflow-hidden border border-white/10 shadow-2xl ml-16">
-                <img
-                  src="https://images.unsplash.com/photo-1759771716152-565fca0fb35e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwyfHxibGFjayUyMG1hbGUlMjBtdXNpY2lhbiUyMHBvcnRyYWl0JTIwc3R1ZGlvJTIwbGlnaHRpbmd8ZW58MHx8fHwxNzc0NTU5NDU3fDA&ixlib=rb-4.1.0&q=85"
-                  alt="Artist"
-                  className="w-full h-full object-cover"
-                />
+              {/* Main Visual - Vinyl Record */}
+              <div className="w-full aspect-square rounded-3xl overflow-hidden border border-[#8B5CF6]/20 shadow-2xl ml-16 bg-gradient-to-br from-[#251E49] to-[#1A1528] flex items-center justify-center">
+                <div className="relative">
+                  <svg viewBox="0 0 200 200" className="w-64 h-64 animate-spin" style={{ animationDuration: '8s' }}>
+                    {/* Outer ring */}
+                    <circle cx="100" cy="100" r="95" fill="#4A3A79" />
+                    <circle cx="100" cy="100" r="80" fill="#6F5BB2" />
+                    <circle cx="100" cy="100" r="65" fill="#8C7EDC" />
+                    <circle cx="100" cy="100" r="50" fill="#00BFFF" />
+                    <circle cx="100" cy="100" r="35" fill="#8B5CF6" />
+                    <circle cx="100" cy="100" r="15" fill="white" />
+                    {/* Grooves */}
+                    <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
+                    <circle cx="100" cy="100" r="75" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
+                    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
+                    <circle cx="100" cy="100" r="45" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
+                  </svg>
+                  {/* Reflection */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full" />
+                </div>
               </div>
 
               {/* Earnings Card */}
-              <div className="absolute -bottom-4 -right-4 w-64 bg-[#121214]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl">
+              <div className="absolute -bottom-4 -right-4 w-64 bg-[#251E49]/90 backdrop-blur-xl border border-[#8B5CF6]/20 rounded-2xl p-4 shadow-2xl">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center">
-                    <Wallet size={20} className="text-[#D4AF37]" weight="fill" />
+                  <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center">
+                    <Wallet size={20} className="text-[#8B5CF6]" weight="fill" />
                   </div>
                   <div>
                     <p className="text-xs text-zinc-500">This Month</p>
@@ -188,7 +220,7 @@ const LandingPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 border-t border-white/5">
+      <section className="py-20 border-t border-[#8B5CF6]/10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -200,7 +232,7 @@ const LandingPage = () => {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] bg-clip-text text-transparent mb-2">
+                <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] bg-clip-text text-transparent mb-2">
                   {stat.value}
                 </p>
                 <p className="text-zinc-500 text-sm">{stat.label}</p>
@@ -221,13 +253,13 @@ const LandingPage = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-              Everything You Need to{" "}
-              <span className="bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] bg-clip-text text-transparent">
-                Succeed
+              Complete{" "}
+              <span className="bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] bg-clip-text text-transparent">
+                Music IP Infrastructure
               </span>
             </h2>
             <p className="text-zinc-400 max-w-2xl mx-auto">
-              A complete toolkit designed for African artists to manage their music business professionally.
+              Every tool you need to archive, protect, and monetize your music catalog professionally.
             </p>
           </motion.div>
 
@@ -239,9 +271,9 @@ const LandingPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-[#121214] border border-white/5 rounded-2xl p-6 hover:-translate-y-2 hover:border-[#FF6B00]/30 hover:shadow-[0_8px_30px_rgba(255,107,0,0.1)] transition-all duration-300"
+                className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-6 hover:-translate-y-2 hover:border-[#00BFFF]/30 hover:shadow-[0_8px_30px_rgba(0,191,255,0.1)] transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF6B00]/20 to-[#D4AF37]/10 flex items-center justify-center text-[#FF6B00] mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00BFFF]/20 to-[#8B5CF6]/10 flex items-center justify-center text-[#00BFFF] mb-4">
                   {feature.icon}
                 </div>
                 <h3 className="text-lg font-medium mb-2">{feature.title}</h3>
@@ -260,21 +292,21 @@ const LandingPage = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-[#121214] to-[#0A0A0B] border border-white/10 rounded-3xl p-12 relative overflow-hidden"
+            className="bg-gradient-to-br from-[#251E49] to-[#1A1528] border border-[#8B5CF6]/20 rounded-3xl p-12 relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B00]/5 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#00BFFF]/5 to-transparent pointer-events-none" />
             
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4 relative z-10">
-              Ready to Take Control?
+              Ready to Secure Your Music Legacy?
             </h2>
             <p className="text-zinc-400 mb-8 max-w-xl mx-auto relative z-10">
-              Join thousands of African artists already using Ziki Tunes to manage their music careers.
+              Join thousands of African artists already using R-CHIVEZ to archive, protect, and monetize their catalogs.
             </p>
             
             <button
               onClick={() => navigate(user ? '/dashboard' : '/auth?mode=register')}
               data-testid="cta-start-btn"
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF6B00] to-[#D4AF37] text-white font-medium rounded-full px-10 py-4 shadow-[0_0_25px_rgba(255,107,0,0.4)] hover:shadow-[0_0_40px_rgba(255,107,0,0.6)] transition-all text-lg relative z-10"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] text-white font-medium rounded-full px-10 py-4 shadow-[0_0_25px_rgba(0,191,255,0.4)] hover:shadow-[0_0_40px_rgba(0,191,255,0.6)] transition-all text-lg relative z-10"
             >
               Start Free Today
               <ArrowRight size={20} weight="bold" />
@@ -284,13 +316,11 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-white/5">
+      <footer className="py-8 border-t border-[#8B5CF6]/10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF6B00] to-[#D4AF37] flex items-center justify-center">
-              <MusicNote size={18} weight="fill" className="text-white" />
-            </div>
-            <span className="text-sm text-zinc-500">© 2024 Ziki Tunes. All rights reserved.</span>
+            <RChivezLogo size="sm" showText={false} />
+            <span className="text-sm text-zinc-500">© 2024 R-CHIVEZ. All rights reserved.</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <a href="#" className="hover:text-white transition-colors">Terms</a>

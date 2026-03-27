@@ -24,7 +24,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-2 border-[#FF6B00] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#00BFFF] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -32,7 +32,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-[#121214] border border-white/10 rounded-lg p-3 shadow-xl">
+        <div className="bg-[#251E49] border border-[#8B5CF6]/20 rounded-lg p-3 shadow-xl">
           <p className="text-xs text-zinc-500 mb-1">{label}</p>
           {payload.map((p, i) => (
             <p key={i} className="text-sm font-medium" style={{ color: p.color }}>
@@ -61,11 +61,11 @@ const AnalyticsSection = ({ analytics, loading }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-[#121214] border border-white/5 rounded-2xl p-5"
+          className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-5"
         >
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-[#FF6B00]/10 flex items-center justify-center">
-              <TrendUp size={22} className="text-[#FF6B00]" weight="fill" />
+            <div className="w-10 h-10 rounded-xl bg-[#00BFFF]/10 flex items-center justify-center">
+              <TrendUp size={22} className="text-[#00BFFF]" weight="fill" />
             </div>
           </div>
           <p className="text-2xl font-semibold">
@@ -78,7 +78,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="bg-[#121214] border border-white/5 rounded-2xl p-5"
+          className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-5"
         >
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-xl bg-[#10B981]/10 flex items-center justify-center">
@@ -95,11 +95,11 @@ const AnalyticsSection = ({ analytics, loading }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-[#121214] border border-white/5 rounded-2xl p-5"
+          className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-5"
         >
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
-              <Users size={22} className="text-[#3B82F6]" />
+            <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center">
+              <Users size={22} className="text-[#8B5CF6]" />
             </div>
           </div>
           <p className="text-2xl font-semibold">
@@ -112,11 +112,11 @@ const AnalyticsSection = ({ analytics, loading }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="bg-[#121214] border border-white/5 rounded-2xl p-5"
+          className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-5"
         >
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center">
-              <ChartLineUp size={22} className="text-[#D4AF37]" weight="fill" />
+            <div className="w-10 h-10 rounded-xl bg-[#00BFFF]/10 flex items-center justify-center">
+              <ChartLineUp size={22} className="text-[#00BFFF]" weight="fill" />
             </div>
           </div>
           <p className="text-2xl font-semibold">+12.5%</p>
@@ -129,7 +129,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-[#121214] border border-white/5 rounded-2xl p-6"
+        className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-6"
       >
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -142,11 +142,11 @@ const AnalyticsSection = ({ analytics, loading }) => {
             <AreaChart data={analytics?.streams_by_day || []}>
               <defs>
                 <linearGradient id="streamsGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#FF6B00" stopOpacity={0.3}/>
-                  <stop offset="95%" stopColor="#FF6B00" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#00BFFF" stopOpacity={0.3}/>
+                  <stop offset="95%" stopColor="#00BFFF" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(139, 92, 246, 0.1)" />
               <XAxis 
                 dataKey="date" 
                 stroke="#71717a"
@@ -163,7 +163,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
                 type="monotone" 
                 dataKey="streams" 
                 name="Streams"
-                stroke="#FF6B00" 
+                stroke="#00BFFF" 
                 strokeWidth={2}
                 fill="url(#streamsGradient)" 
               />
@@ -179,7 +179,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="bg-[#121214] border border-white/5 rounded-2xl p-6"
+          className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-6"
         >
           <div className="mb-6">
             <h2 className="text-lg font-semibold">Revenue</h2>
@@ -188,7 +188,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={analytics?.earnings_by_day || []}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(139, 92, 246, 0.1)" />
                 <XAxis 
                   dataKey="date" 
                   stroke="#71717a"
@@ -205,7 +205,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
                   type="monotone" 
                   dataKey="earnings" 
                   name="$ Earnings"
-                  stroke="#D4AF37" 
+                  stroke="#8B5CF6" 
                   strokeWidth={2}
                   dot={false}
                 />
@@ -219,10 +219,10 @@ const AnalyticsSection = ({ analytics, loading }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-[#121214] border border-white/5 rounded-2xl p-6"
+          className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-6"
         >
           <div className="flex items-center gap-2 mb-6">
-            <Globe size={22} className="text-[#FF6B00]" />
+            <Globe size={22} className="text-[#00BFFF]" />
             <div>
               <h2 className="text-lg font-semibold">Top Countries</h2>
               <p className="text-sm text-zinc-500">By streams</p>
@@ -235,7 +235,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
                 layout="vertical"
                 margin={{ left: 10 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(139, 92, 246, 0.1)" horizontal={false} />
                 <XAxis 
                   type="number" 
                   stroke="#71717a"
@@ -253,7 +253,7 @@ const AnalyticsSection = ({ analytics, loading }) => {
                 <Bar 
                   dataKey="streams" 
                   name="Streams"
-                  fill="#FF6B00" 
+                  fill="#00BFFF" 
                   radius={[0, 4, 4, 0]}
                 />
               </BarChart>
