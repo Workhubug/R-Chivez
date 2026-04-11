@@ -1,17 +1,22 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+
+// Mock data functions
+import {
+  initializeMockData,
+  mockLogin,
+  mockRegister,
+  mockGetCurrentUser,
+  mockLogout,
+} from "@/lib/mockData";
 
 // Pages
 import LandingPage from "@/pages/LandingPage";
 import Dashboard from "@/pages/Dashboard";
 import AuthPage from "@/pages/AuthPage";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-export const API = `${BACKEND_URL}/api`;
 
 // Auth Context
 const AuthContext = createContext(null);
@@ -24,13 +29,14 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Initialize mock data on first load
+    initializeMockData();
+
     const verifyToken = async () => {
       if (token) {
         try {
-          const response = await axios.get(`${API}/auth/me`, {
-            headers: { Authorization: `Bearer ${token}` }
-          });
-          setUser(response.data);
+          const userData = await mockGetCurrentUser();
+          setUser(userData);
         } catch (error) {
           localStorage.removeItem("rchivez_token");
           setToken(null);
@@ -42,8 +48,8 @@ const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    const response = await axios.post(`${API}/auth/login`, { email, password });
-    const { access_token, user: userData } = response.data;
+    const response = await mockLogin(email, password);
+    const { access_token, user: userData } = response;
     localStorage.setItem("rchivez_token", access_token);
     setToken(access_token);
     setUser(userData);
@@ -52,12 +58,8 @@ const AuthProvider = ({ children }) => {
   };
 
   const register = async (email, password, artistName) => {
-    const response = await axios.post(`${API}/auth/register`, {
-      email,
-      password,
-      artist_name: artistName
-    });
-    const { access_token, user: userData } = response.data;
+    const response = await mockRegister(email, password, artistName);
+    const { access_token, user: userData } = response;
     localStorage.setItem("rchivez_token", access_token);
     setToken(access_token);
     setUser(userData);
@@ -66,6 +68,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    mockLogout();
     localStorage.removeItem("rchivez_token");
     setToken(null);
     setUser(null);

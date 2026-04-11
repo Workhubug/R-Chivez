@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import {
   House,
   Archive,
@@ -14,9 +13,22 @@ import {
   FileText,
   Gear
 } from "@phosphor-icons/react";
-import { useAuth, API } from "@/App";
+import { useAuth } from "@/App";
 import { toast } from "sonner";
 import RChivezLogo from "@/components/RChivezLogo";
+
+// Mock data functions
+import {
+  mockGetFiles,
+  mockGetAnalytics,
+  mockGetTransactions,
+  mockCreateFile,
+  mockUpdateFile,
+  mockDeleteFile,
+  mockWithdraw,
+  mockSeedDemoData,
+  mockGetWalletBalance,
+} from "@/lib/mockData";
 
 // Dashboard Sections
 import DashboardHome from "@/components/dashboard/DashboardHome";
@@ -30,7 +42,7 @@ import FileDetailPanel from "@/components/dashboard/FileDetailPanel";
 const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, token, logout, updateUser } = useAuth();
+  const { user, logout, updateUser } = useAuth();
   
   const [files, setFiles] = useState([]);
   const [analytics, setAnalytics] = useState(null);
@@ -47,44 +59,43 @@ const Dashboard = () => {
     { path: "/dashboard/wallet", icon: Wallet, label: "Wallet" },
   ];
 
-  const authHeaders = { headers: { Authorization: `Bearer ${token}` } };
-
   // Fetch all data
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [filesRes, analyticsRes, transactionsRes] = await Promise.all([
-          axios.get(`${API}/files`, authHeaders),
-          axios.get(`${API}/analytics`, authHeaders),
-          axios.get(`${API}/wallet/transactions`, authHeaders)
+        const [filesData, analyticsData, transactionsData] = await Promise.all([
+          mockGetFiles(user.id),
+          mockGetAnalytics(user.id),
+          mockGetTransactions(user.id),
         ]);
         
-        setFiles(filesRes.data);
-        setAnalytics(analyticsRes.data);
-        setTransactions(transactionsRes.data);
+        setFiles(filesData);
+        setAnalytics(analyticsData);
+        setTransactions(transactionsData);
       } catch (error) {
         console.error("Error fetching data:", error);
+        toast.error("Failed to load data");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [token]);
+    if (user?.id) {
+      fetchData();
+    }
+  }, [user?.id]);
 
   // Seed demo data if no files
   const seedDemoData = async () => {
     try {
-      const response = await axios.post(`${API}/demo/seed`, {}, authHeaders);
-      setFiles(response.data.files);
+      const response = await mockSeedDemoData(user.id);
+      setFiles(response.files);
       
       // Refresh analytics and user data
-      const [analyticsRes, userRes] = await Promise.all([
-        axios.get(`${API}/analytics`, authHeaders),
-        axios.get(`${API}/auth/me`, authHeaders)
+      const [analyticsData] = await Promise.all([
+        mockGetAnalytics(user.id),
       ]);
-      setAnalytics(analyticsRes.data);
-      updateUser({ wallet_balance: userRes.data.wallet_balance });
+      setAnalytics(analyticsData);
       
       toast.success("Demo data loaded!");
     } catch (error) {
@@ -95,10 +106,10 @@ const Dashboard = () => {
   // Create file
   const createFile = async (fileData) => {
     try {
-      const response = await axios.post(`${API}/files`, fileData, authHeaders);
-      setFiles([...files, response.data]);
+      const newFile = await mockCreateFile(fileData, user.id);
+      setFiles([...files, newFile]);
       toast.success("Asset uploaded successfully!");
-      return response.data;
+      return newFile;
     } catch (error) {
       toast.error("Failed to upload asset");
       throw error;
@@ -108,13 +119,13 @@ const Dashboard = () => {
   // Update file
   const updateFile = async (fileId, updates) => {
     try {
-      const response = await axios.patch(`${API}/files/${fileId}`, updates, authHeaders);
-      setFiles(files.map(f => f.id === fileId ? response.data : f));
+      const updatedFile = await mockUpdateFile(fileId, updates, user.id);
+      setFiles(files.map(f => f.id === fileId ? updatedFile : f));
       if (selectedFile?.id === fileId) {
-        setSelectedFile(response.data);
+        setSelectedFile(updatedFile);
       }
       toast.success("Asset updated!");
-      return response.data;
+      return updatedFile;
     } catch (error) {
       toast.error("Failed to update asset");
       throw error;
@@ -124,7 +135,7 @@ const Dashboard = () => {
   // Delete file
   const deleteFile = async (fileId) => {
     try {
-      await axios.delete(`${API}/files/${fileId}`, authHeaders);
+      await mockDeleteFile(fileId, user.id);
       setFiles(files.filter(f => f.id !== fileId));
       if (selectedFile?.id === fileId) {
         setSelectedFile(null);
@@ -138,21 +149,17 @@ const Dashboard = () => {
   // Withdraw
   const withdraw = async (amount, method, details) => {
     try {
-      const response = await axios.post(
-        `${API}/wallet/withdraw`,
-        { amount, method, details },
-        authHeaders
-      );
-      updateUser({ wallet_balance: response.data.new_balance });
+      const response = await mockWithdraw(amount, method, details, user.id);
+      updateUser({ wallet_balance: response.new_balance });
       
       // Refresh transactions
-      const txRes = await axios.get(`${API}/wallet/transactions`, authHeaders);
-      setTransactions(txRes.data);
+      const transactionsData = await mockGetTransactions(user.id);
+      setTransactions(transactionsData);
       
       toast.success("Withdrawal initiated!");
-      return response.data;
+      return response;
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Withdrawal failed");
+      toast.error(error.message || "Withdrawal failed");
       throw error;
     }
   };
