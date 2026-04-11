@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* R-CHIVEZ Brand Colors */
+  --rchivez-bg: #1A1528;
+  --rchivez-bg-deep: #0F0D1A;
+  --rchivez-surface: #251E49;
+  --rchivez-surface-hover: #322A5C;
+  --rchivez-primary: #00BFFF;
+  --rchivez-primary-glow: rgba(0, 191, 255, 0.4);
+  --rchivez-secondary: #8B5CF6;
+  --rchivez-accent: #6F5BB2;
+  --rchivez-border: rgba(139, 92, 246, 0.2);
+  --rchivez-text-main: #FFFFFF;
+  --rchivez-text-muted: #A1A1AA;
+  --rchivez-success: #10B981;
+  --rchivez-cyan: #00C6F7;
+  --rchivez-purple-light: #8C7EDC;
+  --rchivez-purple-dark: #4A3A79;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--rchivez-bg-deep);
+  color: var(--rchivez-text-main);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--rchivez-bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rchivez-surface-hover);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rchivez-primary);
+}
+
+/* Glassmorphism panel */
+.glass-panel {
+  background: rgba(37, 30, 73, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* Glowing button - Primary (Cyan) */
+.btn-glow {
+  background: linear-gradient(135deg, var(--rchivez-primary), var(--rchivez-cyan));
+  box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 25px rgba(0, 191, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Secondary button (Purple) */
+.btn-secondary-glow {
+  background: linear-gradient(135deg, var(--rchivez-secondary), var(--rchivez-accent));
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-secondary-glow:hover {
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Card hover effect */
+.card-glow {
+  transition: all 0.3s ease;
+}
+
+.card-glow:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 191, 255, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 191, 255, 0.1);
+}
+
+/* Drag and drop zone */
+.drop-zone {
+  border: 2px dashed rgba(139, 92, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.drop-zone:hover,
+.drop-zone.dragging {
+  border-color: rgba(0, 191, 255, 0.5);
+  background: rgba(0, 191, 255, 0.05);
+}
+
+/* Switch customization */
+.switch-rchivez[data-state="checked"] {
+  background-color: var(--rchivez-primary) !important;
+}
+
+/* Animation keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.5);
+  }
+}
+
+@keyframes soundwave {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.5); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-soundwave {
+  animation: soundwave 0.6s ease-in-out infinite;
+}
+
+@layer base {
+  :root {
+    --background: 260 30% 8%;
+    --foreground: 0 0% 100%;
+    --card: 260 35% 15%;
+    --card-foreground: 0 0% 100%;
+    --popover: 260 30% 10%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 195 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 262 83% 66%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 260 20% 20%;
+    --muted-foreground: 0 0% 63%;
+    --accent: 262 83% 66%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 262 40% 25%;
+    --input: 262 40% 25%;
+    --ring: 195 100% 50%;
+    --radius: 0.75rem;
+    --chart-1: 195 100% 50%;
+    --chart-2: 262 83% 66%;
+    --chart-3: 160 84% 39%;
+    --chart-4: 30 80% 55%;
+    --chart-5: 280 65% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Ensure dark theme consistency */
+.dark {
+  color-scheme: dark;
+}
+
+/* Vinyl record animation */
+.vinyl-spin {
+  animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
