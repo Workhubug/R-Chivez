@@ -179,27 +179,14 @@ const LandingPage = () => {
                 <div className="h-12 bg-gradient-to-r from-[#00BFFF]/20 to-transparent rounded-lg" />
               </div>
 
-              {/* Main Visual - Vinyl Record */}
-              <div className="w-full aspect-square rounded-3xl overflow-hidden border border-[#8B5CF6]/20 shadow-2xl ml-16 bg-gradient-to-br from-[#251E49] to-[#1A1528] flex items-center justify-center">
-                <div className="relative">
-                  <svg viewBox="0 0 200 200" className="w-64 h-64 animate-spin" style={{ animationDuration: '8s' }}>
-                    {/* Outer ring */}
-                    <circle cx="100" cy="100" r="95" fill="#4A3A79" />
-                    <circle cx="100" cy="100" r="80" fill="#6F5BB2" />
-                    <circle cx="100" cy="100" r="65" fill="#8C7EDC" />
-                    <circle cx="100" cy="100" r="50" fill="#00BFFF" />
-                    <circle cx="100" cy="100" r="35" fill="#8B5CF6" />
-                    <circle cx="100" cy="100" r="15" fill="white" />
-                    {/* Grooves */}
-                    <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
-                    <circle cx="100" cy="100" r="75" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
-                    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
-                    <circle cx="100" cy="100" r="45" fill="none" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
-                  </svg>
-                  {/* Reflection */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-full" />
-                </div>
-              </div>
+             {/* Main Visual - R-Chivez Image */}
+<div className="w-full aspect-square rounded-3xl overflow-hidden border border-[#8B5CF6]/20 shadow-2xl ml-16 bg-gradient-to-br from-[#251E49] to-[#1A1528] flex items-center justify-center">
+  <img 
+    src="/r-chivez_image.png" 
+    alt="R-Chivez Platform" 
+    className="w-full h-full object-cover"
+  />
+</div>
 
               {/* Earnings Card */}
               <div className="absolute -bottom-4 -right-4 w-64 bg-[#251E49]/90 backdrop-blur-xl border border-[#8B5CF6]/20 rounded-2xl p-4 shadow-2xl">
