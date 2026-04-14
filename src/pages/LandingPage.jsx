@@ -199,7 +199,7 @@ const LandingPage = () => {
                     <p className="text-lg font-semibold text-[#10B981]">22M+</p>
                   </div>
                 </div>
-                <p className="text-xs text-zinc-500">Streams Generated</p>
+                <p className="text-xs text-zinc-500">Over 250+ platforms</p>
               </div>
             </div>
           </motion.div>
