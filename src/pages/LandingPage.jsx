@@ -196,7 +196,7 @@ const LandingPage = () => {
                   </div>
                   <div>
                     <p className="text-xs text-zinc-500">Streams Generated</p>
-                    <p className="text-lg font-semibold text-[#10B981]">+22M+</p>
+                    <p className="text-lg font-semibold text-[#10B981]">22M+</p>
                   </div>
                 </div>
                 <p className="text-xs text-zinc-500">From streaming & licenses</p>
@@ -307,7 +307,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <RChivezLogo size="sm" showText={false} />
-            <span className="text-sm text-zinc-500">© 2024 R-CHIVEZ. All rights reserved.</span>
+            <span className="text-sm text-zinc-500">© 2026 R-CHIVEZ. All rights reserved.</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-zinc-500">
             <a href="#" className="hover:text-white transition-colors">Terms</a>
