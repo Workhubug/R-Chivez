@@ -172,8 +172,8 @@ const LandingPage = () => {
                     <ChartLineUp size={20} className="text-[#00BFFF]" weight="fill" />
                   </div>
                   <div>
-                    <p className="text-xs text-zinc-500">Total Streams</p>
-                    <p className="text-lg font-semibold">2.4M</p>
+                    <p className="text-xs text-zinc-500">Tracks Archived</p>
+                    <p className="text-lg font-semibold">5K+</p>
                   </div>
                 </div>
                 <div className="h-12 bg-gradient-to-r from-[#00BFFF]/20 to-transparent rounded-lg" />
@@ -195,8 +195,8 @@ const LandingPage = () => {
                     <Wallet size={20} className="text-[#8B5CF6]" weight="fill" />
                   </div>
                   <div>
-                    <p className="text-xs text-zinc-500">This Month</p>
-                    <p className="text-lg font-semibold text-[#10B981]">+$4,280</p>
+                    <p className="text-xs text-zinc-500">Streams Generated</p>
+                    <p className="text-lg font-semibold text-[#10B981]">+22M+</p>
                   </div>
                 </div>
                 <p className="text-xs text-zinc-500">From streaming & licenses</p>
