@@ -69,7 +69,7 @@ const LandingPage = () => {
     { value: "2K+", label: "Active Artists" },
     { value: "5K+", label: "Tracks Archived" },
     { value: "18K+", label: "Revenue Generated" },
-    { value: "150+", label: "DSP Partners" }
+    { value: "22M+", label: "Streams Generated" }
   ];
 
   return (
