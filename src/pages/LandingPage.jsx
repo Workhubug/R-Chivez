@@ -66,9 +66,9 @@ const LandingPage = () => {
   ];
 
   const stats = [
-    { value: "50K+", label: "Active Artists" },
-    { value: "2M+", label: "Tracks Archived" },
-    { value: "$10M+", label: "Revenue Distributed" },
+    { value: "2K+", label: "Active Artists" },
+    { value: "5K+", label: "Tracks Archived" },
+    { value: "18K+", label: "Revenue Generated" },
     { value: "150+", label: "DSP Partners" }
   ];
 
@@ -121,7 +121,7 @@ const LandingPage = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 mb-8">
               <span className="w-2 h-2 rounded-full bg-[#00BFFF] animate-pulse" />
-              <span className="text-sm text-[#00BFFF]">Afro-centric Music IP Platform</span>
+              <span className="text-sm text-[#00BFFF]">Emerging Market Music IP Platform</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-white leading-tight mb-6">
@@ -133,7 +133,7 @@ const LandingPage = () => {
             </h1>
             
             <p className="text-lg text-zinc-400 mb-10 max-w-xl leading-relaxed">
-              The complete platform for African artists to securely archive masters, establish ownership chains, and monetize through licensing and distribution.
+              The complete platform for artists in emerging markets to securely archive, secure masters, establish ownership chains, and monetize through licensing and distribution.
             </p>
             
             <div className="flex flex-wrap gap-4">
