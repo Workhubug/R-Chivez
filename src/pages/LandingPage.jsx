@@ -56,7 +56,7 @@ const LandingPage = () => {
     {
       icon: <Link size={28} weight="duotone" />,
       title: "Metadata Standardization",
-      description: "Auto-clean ISRC, UPC, contributor roles with Afro-centric genre taxonomy."
+      description: "Auto-clean ISRC, UPC, contributor roles with emerging market genre taxonomy."
     },
     {
       icon: <ChartLineUp size={28} weight="duotone" />,
