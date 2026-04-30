@@ -76,7 +76,7 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
   const [updating, setUpdating] = useState(false);
 
   const distributors = [
-    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "transparent" },
+    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "#251E49", useBlendMode: true },
     { id: "omziki", name: "Omziki", logo: distributorLogos.omziki, bgColor: "#000000" },
     { id: "ugatunes", name: "UgaTunes", logo: distributorLogos.ugatunes, bgColor: "#E91E8C" },
     { id: "kelele", name: "Kelele Digital", logo: distributorLogos.kelele, bgColor: "#2A2A2A" },
@@ -204,6 +204,7 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
                     src={distributor.logo} 
                     alt={distributor.name}
                     className="w-14 h-14 object-contain"
+                    style={distributor.useBlendMode ? { mixBlendMode: 'multiply' } : {}}
                   />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -286,6 +287,7 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
                             src={distributor.logo} 
                             alt={distributor.name}
                             className="w-5 h-5 object-contain"
+                            style={distributor.useBlendMode ? { mixBlendMode: 'multiply' } : {}}
                           />
                         </div>
                       );
@@ -401,6 +403,7 @@ const DistributionCard = ({ file, distributors, onDistribute, onSelect, updating
                             src={distributor.logo} 
                             alt={distributor.name}
                             className="w-8 h-8 object-contain"
+                            style={distributor.useBlendMode ? { mixBlendMode: 'multiply' } : {}}
                           />
                         </div>
                         <span className="text-xs font-medium">{distributor.name}</span>

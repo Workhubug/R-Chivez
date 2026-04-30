@@ -20,10 +20,10 @@ Build R-CHIVEZ - a high-end, dark-themed web app UI for African artists to archi
 2. **Metadata Standardization Engine** - ISRC, UPC, contributor roles, Afro-centric genre taxonomy
 3. **Rights Ownership Registry** - Copyright owner, territories, rights types
 4. **Licensing & Commercialization Engine** - Sync, NFT, Commercial licensing
-5. **Distribution Partner Sync Layer** - Spotify, Apple Music, Boomplay integration
+5. **Distribution Partner Sync Layer** - Partner African distributors (Ziki Tunes, Omziki, UgaTunes, Kelele Digital)
 6. **Royalty Entitlement & Wallet** - Revenue distribution and withdrawals
 
-## What's Been Implemented (March 27, 2026)
+## What's Been Implemented (December 2025)
 
 ### Landing Page
 - R-CHIVEZ branding with vinyl record logo
@@ -41,31 +41,41 @@ Build R-CHIVEZ - a high-end, dark-themed web app UI for African artists to archi
 - Recent files with status badges
 - Earnings tracking with purple accent
 
+### Distribution Section (Updated December 2025)
+- Partner Distributors: Ziki Tunes, Omziki, UgaTunes, Kelele Digital with custom logos
+- Ziki Tunes logo white background removed using CSS mix-blend-mode: multiply
+- Distributor-specific metadata requirements displayed per distributor:
+  - Ziki Tunes: ISRC, Primary Artist, Genre, Release Date
+  - Omziki: ISRC, UPC, Primary Artist, Label, Copyright Owner
+  - UgaTunes: ISRC, Primary Artist, Genre, Territory Rights
+  - Kelele Digital: ISRC, UPC, Primary Artist, Producers, Writers, Copyright Owner
+- File Detail Panel shows distributor requirements status
+- Missing metadata warnings displayed before distribution
+
 ### Other Sections
-- Distribution Partner Sync
 - Licensing Configuration
-- Analytics Charts
-- Wallet with withdrawals
+- Analytics Charts (mocked data)
+- Wallet with withdrawals (mocked)
 
 ## Mocked Features
 - File upload (metadata only, no actual file storage)
 - Analytics data (random mock data)
 - Wallet withdrawals (mock processing)
+- Distribution API (UI only, no actual partner API integration)
 
 ## Remaining Backlog
-
-### P0 (Critical)
-- None - MVP complete with enhanced forms
 
 ### P1 (High Priority)
 - Real file storage (Object Storage for WAV/FLAC)
 - Rights Conflict Detection Engine
 - Contract & Documentation Vault
+- Actual distribution partner API integrations
 
 ### P2 (Medium Priority)
 - Bulk metadata ingestion
 - Multi-owner governance workflows
 - Recoupment tracking
+- Add more African distributors
 
 ### P3 (Low Priority)
 - Chain-of-custody audit trails

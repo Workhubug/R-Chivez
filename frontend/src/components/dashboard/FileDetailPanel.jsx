@@ -91,7 +91,7 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
   const [licenseType, setLicenseType] = useState(file.license_type || "");
 
   const distributors = [
-    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "transparent" },
+    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "#251E49", useBlendMode: true },
     { id: "omziki", name: "Omziki", logo: distributorLogos.omziki, bgColor: "#000000" },
     { id: "ugatunes", name: "UgaTunes", logo: distributorLogos.ugatunes, bgColor: "#E91E8C" },
     { id: "kelele", name: "Kelele Digital", logo: distributorLogos.kelele, bgColor: "#2A2A2A" },
@@ -306,6 +306,7 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
                                   src={distributor.logo} 
                                   alt={distributor.name}
                                   className="w-6 h-6 object-contain"
+                                  style={distributor.useBlendMode ? { mixBlendMode: 'multiply' } : {}}
                                 />
                               </div>
                               <span className="text-xs flex-1 text-left truncate">{distributor.name}</span>
