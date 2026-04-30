@@ -8,9 +8,6 @@ import {
   Certificate,
   Trash,
   Info,
-  SpotifyLogo,
-  AppleLogo,
-  Globe,
   Check
 } from "@phosphor-icons/react";
 import { Switch } from "@/components/ui/switch";
@@ -33,17 +30,26 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+// Distributor logos
+const distributorLogos = {
+  ziki_tunes: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/e23k3jz7_ziki%20logo2.png",
+  omziki: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/n0rdx6ar_Omziki-Logo-Web%20%281%29.png",
+  ugatunes: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/zlspw6tv_ugatunes-logo.png",
+  kelele: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/s9tywfmy_kelele.png",
+};
+
 const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
   const [localFile, setLocalFile] = useState(file);
   const [saving, setSaving] = useState(false);
-  const [selectedPlatforms, setSelectedPlatforms] = useState(file.distribution_platforms || []);
+  const [selectedDistributors, setSelectedDistributors] = useState(file.distribution_platforms || []);
   const [licensePrice, setLicensePrice] = useState([file.license_price || 100]);
   const [licenseType, setLicenseType] = useState(file.license_type || "");
 
-  const platforms = [
-    { id: "spotify", name: "Spotify", icon: SpotifyLogo, color: "#1DB954" },
-    { id: "apple_music", name: "Apple Music", icon: AppleLogo, color: "#FA243C" },
-    { id: "boomplay", name: "Boomplay", icon: Globe, color: "#00BFFF" },
+  const distributors = [
+    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "#0A1628" },
+    { id: "omziki", name: "Omziki", logo: distributorLogos.omziki, bgColor: "#000000" },
+    { id: "ugatunes", name: "UgaTunes", logo: distributorLogos.ugatunes, bgColor: "#E91E8C" },
+    { id: "kelele", name: "Kelele Digital", logo: distributorLogos.kelele, bgColor: "#2A2A2A" },
   ];
 
   const licenseTypes = [
@@ -56,11 +62,11 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
     setLocalFile({ ...localFile, [field]: value });
   };
 
-  const togglePlatform = (platformId) => {
-    setSelectedPlatforms((prev) =>
-      prev.includes(platformId)
-        ? prev.filter((id) => id !== platformId)
-        : [...prev, platformId]
+  const toggleDistributor = (distributorId) => {
+    setSelectedDistributors((prev) =>
+      prev.includes(distributorId)
+        ? prev.filter((id) => id !== distributorId)
+        : [...prev, distributorId]
     );
   };
 
@@ -74,7 +80,7 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
       };
 
       if (localFile.is_distributed) {
-        updates.distribution_platforms = selectedPlatforms;
+        updates.distribution_platforms = selectedDistributors;
       }
 
       if (localFile.is_licensed) {
@@ -182,7 +188,7 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
                         <Info size={14} className="text-zinc-500" />
                       </TooltipTrigger>
                       <TooltipContent className="bg-[#251E49] border-[#8B5CF6]/20">
-                        <p className="text-sm">Push to streaming platforms worldwide</p>
+                        <p className="text-sm">Send to partner distributors</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -195,7 +201,7 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
               />
             </div>
 
-            {/* Platform Selection */}
+            {/* Distributor Selection */}
             {localFile.is_distributed && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
@@ -203,26 +209,34 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
                 exit={{ opacity: 0, height: 0 }}
                 className="pl-4 space-y-2"
               >
-                <p className="text-sm text-zinc-400">Select platforms:</p>
-                <div className="space-y-2">
-                  {platforms.map((platform) => {
-                    const Icon = platform.icon;
-                    const isSelected = selectedPlatforms.includes(platform.id);
+                <p className="text-sm text-zinc-400">Select distributors:</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {distributors.map((distributor) => {
+                    const isSelected = selectedDistributors.includes(distributor.id);
                     return (
                       <button
-                        key={platform.id}
-                        onClick={() => togglePlatform(platform.id)}
-                        data-testid={`panel-platform-${platform.id}`}
-                        className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${
+                        key={distributor.id}
+                        onClick={() => toggleDistributor(distributor.id)}
+                        data-testid={`panel-distributor-${distributor.id}`}
+                        className={`flex items-center gap-2 p-2 rounded-xl border transition-all ${
                           isSelected
                             ? "border-[#00BFFF] bg-[#00BFFF]/10"
                             : "border-[#8B5CF6]/20 hover:border-[#8B5CF6]/40"
                         }`}
                       >
-                        <Icon size={20} style={{ color: platform.color }} />
-                        <span className="text-sm flex-1 text-left">{platform.name}</span>
+                        <div 
+                          className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0"
+                          style={{ backgroundColor: distributor.bgColor }}
+                        >
+                          <img 
+                            src={distributor.logo} 
+                            alt={distributor.name}
+                            className="w-6 h-6 object-contain"
+                          />
+                        </div>
+                        <span className="text-xs flex-1 text-left truncate">{distributor.name}</span>
                         {isSelected && (
-                          <Check size={16} className="text-[#00BFFF]" weight="bold" />
+                          <Check size={14} className="text-[#00BFFF] flex-shrink-0" weight="bold" />
                         )}
                       </button>
                     );

@@ -4,27 +4,34 @@ import {
   Broadcast,
   MusicNote,
   Check,
-  SpotifyLogo,
-  AppleLogo,
   Globe
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
 
+// Distributor logos
+const distributorLogos = {
+  ziki_tunes: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/e23k3jz7_ziki%20logo2.png",
+  omziki: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/n0rdx6ar_Omziki-Logo-Web%20%281%29.png",
+  ugatunes: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/zlspw6tv_ugatunes-logo.png",
+  kelele: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/s9tywfmy_kelele.png",
+};
+
 const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
   const [updating, setUpdating] = useState(false);
 
-  const platforms = [
-    { id: "spotify", name: "Spotify", icon: SpotifyLogo, color: "#1DB954" },
-    { id: "apple_music", name: "Apple Music", icon: AppleLogo, color: "#FA243C" },
-    { id: "boomplay", name: "Boomplay", icon: Globe, color: "#00BFFF" },
+  const distributors = [
+    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "#0A1628" },
+    { id: "omziki", name: "Omziki", logo: distributorLogos.omziki, bgColor: "#000000" },
+    { id: "ugatunes", name: "UgaTunes", logo: distributorLogos.ugatunes, bgColor: "#E91E8C" },
+    { id: "kelele", name: "Kelele Digital", logo: distributorLogos.kelele, bgColor: "#2A2A2A" },
   ];
 
   const distributedFiles = files.filter(f => f.is_distributed);
   const undistributedFiles = files.filter(f => !f.is_distributed);
 
-  const handleDistribute = async (file, platforms) => {
-    if (platforms.length === 0) {
-      toast.error("Please select at least one platform");
+  const handleDistribute = async (file, selectedDistributors) => {
+    if (selectedDistributors.length === 0) {
+      toast.error("Please select at least one distributor");
       return;
     }
     
@@ -32,7 +39,7 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
     try {
       await onUpdateFile(file.id, {
         is_distributed: true,
-        distribution_platforms: platforms
+        distribution_platforms: selectedDistributors
       });
     } catch (error) {
       // handled in parent
@@ -46,7 +53,7 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Distribution Partner Sync</h1>
-        <p className="text-zinc-500 mt-1">Align archive rights data with distributed catalogs</p>
+        <p className="text-zinc-500 mt-1">Connect with African music distributors to reach global audiences</p>
       </div>
 
       {/* Stats */}
@@ -77,32 +84,33 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
               <Globe size={22} className="text-[#10B981]" />
             </div>
           </div>
-          <p className="text-2xl font-semibold">150+</p>
-          <p className="text-sm text-zinc-500">Available Platforms</p>
+          <p className="text-2xl font-semibold">{distributors.length}</p>
+          <p className="text-sm text-zinc-500">Partner Distributors</p>
         </div>
       </div>
 
-      {/* Platforms */}
+      {/* Distributors */}
       <div className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-6">
-        <h2 className="text-lg font-semibold mb-4">Supported Platforms</h2>
-        <div className="grid grid-cols-3 gap-4">
-          {platforms.map((platform) => {
-            const Icon = platform.icon;
-            return (
+        <h2 className="text-lg font-semibold mb-4">Partner Distributors</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {distributors.map((distributor) => (
+            <div
+              key={distributor.id}
+              className="flex flex-col items-center gap-3 p-4 rounded-xl bg-[#0F0D1A] border border-[#8B5CF6]/15 hover:border-[#00BFFF]/30 transition-all"
+            >
               <div
-                key={platform.id}
-                className="flex items-center gap-3 p-4 rounded-xl bg-[#0F0D1A] border border-[#8B5CF6]/15"
+                className="w-16 h-16 rounded-xl flex items-center justify-center overflow-hidden"
+                style={{ backgroundColor: distributor.bgColor }}
               >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{ backgroundColor: `${platform.color}20` }}
-                >
-                  <Icon size={24} weight="fill" style={{ color: platform.color }} />
-                </div>
-                <span className="font-medium">{platform.name}</span>
+                <img 
+                  src={distributor.logo} 
+                  alt={distributor.name}
+                  className="w-14 h-14 object-contain"
+                />
               </div>
-            );
-          })}
+              <span className="font-medium text-sm text-center">{distributor.name}</span>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -115,7 +123,7 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
               <DistributionCard
                 key={file.id}
                 file={file}
-                platforms={platforms}
+                distributors={distributors}
                 onDistribute={handleDistribute}
                 onSelect={() => onSelectFile(file)}
                 updating={updating}
@@ -148,11 +156,20 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
                   <p className="font-medium">{file.title}</p>
                   <div className="flex items-center gap-2 mt-1">
                     {file.distribution_platforms?.map((p) => {
-                      const platform = platforms.find(pl => pl.id === p);
-                      if (!platform) return null;
-                      const Icon = platform.icon;
+                      const distributor = distributors.find(d => d.id === p);
+                      if (!distributor) return null;
                       return (
-                        <Icon key={p} size={16} style={{ color: platform.color }} />
+                        <div 
+                          key={p} 
+                          className="w-6 h-6 rounded overflow-hidden"
+                          style={{ backgroundColor: distributor.bgColor }}
+                        >
+                          <img 
+                            src={distributor.logo} 
+                            alt={distributor.name}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
                       );
                     })}
                   </div>
@@ -180,15 +197,15 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
   );
 };
 
-const DistributionCard = ({ file, platforms, onDistribute, onSelect, updating, index }) => {
+const DistributionCard = ({ file, distributors, onDistribute, onSelect, updating, index }) => {
   const [expanded, setExpanded] = useState(false);
-  const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+  const [selectedDistributors, setSelectedDistributors] = useState([]);
 
-  const togglePlatform = (platformId) => {
-    setSelectedPlatforms((prev) =>
-      prev.includes(platformId)
-        ? prev.filter((id) => id !== platformId)
-        : [...prev, platformId]
+  const toggleDistributor = (distributorId) => {
+    setSelectedDistributors((prev) =>
+      prev.includes(distributorId)
+        ? prev.filter((id) => id !== distributorId)
+        : [...prev, distributorId]
     );
   };
 
@@ -229,34 +246,42 @@ const DistributionCard = ({ file, platforms, onDistribute, onSelect, updating, i
           exit={{ height: 0, opacity: 0 }}
           className="border-t border-[#8B5CF6]/15 p-4"
         >
-          <p className="text-sm text-zinc-400 mb-4">Select platforms to distribute to:</p>
-          <div className="grid grid-cols-3 gap-3 mb-4">
-            {platforms.map((platform) => {
-              const Icon = platform.icon;
-              const isSelected = selectedPlatforms.includes(platform.id);
+          <p className="text-sm text-zinc-400 mb-4">Select distributors:</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+            {distributors.map((distributor) => {
+              const isSelected = selectedDistributors.includes(distributor.id);
               return (
                 <button
-                  key={platform.id}
-                  onClick={() => togglePlatform(platform.id)}
-                  data-testid={`platform-${platform.id}`}
-                  className={`flex items-center gap-2 p-3 rounded-xl border transition-all ${
+                  key={distributor.id}
+                  onClick={() => toggleDistributor(distributor.id)}
+                  data-testid={`distributor-${distributor.id}`}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-xl border transition-all ${
                     isSelected
                       ? "border-[#00BFFF] bg-[#00BFFF]/10"
                       : "border-[#8B5CF6]/20 hover:border-[#8B5CF6]/40"
                   }`}
                 >
-                  <Icon size={20} style={{ color: platform.color }} />
-                  <span className="text-sm">{platform.name}</span>
+                  <div 
+                    className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center"
+                    style={{ backgroundColor: distributor.bgColor }}
+                  >
+                    <img 
+                      src={distributor.logo} 
+                      alt={distributor.name}
+                      className="w-8 h-8 object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-medium">{distributor.name}</span>
                   {isSelected && (
-                    <Check size={16} className="ml-auto text-[#00BFFF]" weight="bold" />
+                    <Check size={14} className="text-[#00BFFF]" weight="bold" />
                   )}
                 </button>
               );
             })}
           </div>
           <button
-            onClick={() => onDistribute(file, selectedPlatforms)}
-            disabled={updating || selectedPlatforms.length === 0}
+            onClick={() => onDistribute(file, selectedDistributors)}
+            disabled={updating || selectedDistributors.length === 0}
             data-testid="confirm-distribute-btn"
             className="w-full py-3 rounded-xl bg-gradient-to-r from-[#00BFFF] to-[#8B5CF6] text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
