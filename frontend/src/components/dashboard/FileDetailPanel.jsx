@@ -34,7 +34,7 @@ import {
 
 // Distributor logos
 const distributorLogos = {
-  ziki_tunes: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/e23k3jz7_ziki%20logo2.png",
+  ziki_tunez: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/9eylyhce_ziki%20png.png",
   omziki: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/n0rdx6ar_Omziki-Logo-Web%20%281%29.png",
   ugatunes: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/zlspw6tv_ugatunes-logo.png",
   kelele: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/s9tywfmy_kelele.png",
@@ -42,8 +42,8 @@ const distributorLogos = {
 
 // Distributor-specific metadata requirements
 const distributorRequirements = {
-  ziki_tunes: {
-    name: "Ziki Tunes",
+  ziki_tunez: {
+    name: "Ziki Tunez",
     requirements: [
       { field: "isrc", label: "ISRC" },
       { field: "primary_artist", label: "Artist" },
@@ -91,7 +91,7 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
   const [licenseType, setLicenseType] = useState(file.license_type || "");
 
   const distributors = [
-    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "#251E49", useBlendMode: true },
+    { id: "ziki_tunez", name: "Ziki Tunez", logo: distributorLogos.ziki_tunez, bgColor: "#000000" },
     { id: "omziki", name: "Omziki", logo: distributorLogos.omziki, bgColor: "#000000" },
     { id: "ugatunes", name: "UgaTunes", logo: distributorLogos.ugatunes, bgColor: "#E91E8C" },
     { id: "kelele", name: "Kelele Digital", logo: distributorLogos.kelele, bgColor: "#2A2A2A" },
@@ -306,7 +306,6 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
                                   src={distributor.logo} 
                                   alt={distributor.name}
                                   className="w-6 h-6 object-contain"
-                                  style={distributor.useBlendMode ? { mixBlendMode: 'multiply' } : {}}
                                 />
                               </div>
                               <span className="text-xs flex-1 text-left truncate">{distributor.name}</span>
