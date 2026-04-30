@@ -8,7 +8,9 @@ import {
   Certificate,
   Trash,
   Info,
-  Check
+  Check,
+  Warning,
+  CheckCircle
 } from "@phosphor-icons/react";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
@@ -38,6 +40,49 @@ const distributorLogos = {
   kelele: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/s9tywfmy_kelele.png",
 };
 
+// Distributor-specific metadata requirements
+const distributorRequirements = {
+  ziki_tunes: {
+    name: "Ziki Tunes",
+    requirements: [
+      { field: "isrc", label: "ISRC" },
+      { field: "primary_artist", label: "Artist" },
+      { field: "genre", label: "Genre" },
+      { field: "release_date", label: "Release Date" },
+    ],
+  },
+  omziki: {
+    name: "Omziki",
+    requirements: [
+      { field: "isrc", label: "ISRC" },
+      { field: "upc", label: "UPC" },
+      { field: "primary_artist", label: "Artist" },
+      { field: "label", label: "Label" },
+      { field: "copyright_owner", label: "Copyright" },
+    ],
+  },
+  ugatunes: {
+    name: "UgaTunes",
+    requirements: [
+      { field: "isrc", label: "ISRC" },
+      { field: "primary_artist", label: "Artist" },
+      { field: "genre", label: "Genre" },
+      { field: "territories", label: "Territories" },
+    ],
+  },
+  kelele: {
+    name: "Kelele Digital",
+    requirements: [
+      { field: "isrc", label: "ISRC" },
+      { field: "upc", label: "UPC" },
+      { field: "primary_artist", label: "Artist" },
+      { field: "producers", label: "Producers" },
+      { field: "writers", label: "Writers" },
+      { field: "copyright_owner", label: "Copyright" },
+    ],
+  },
+};
+
 const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
   const [localFile, setLocalFile] = useState(file);
   const [saving, setSaving] = useState(false);
@@ -46,7 +91,7 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
   const [licenseType, setLicenseType] = useState(file.license_type || "");
 
   const distributors = [
-    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "#0A1628" },
+    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "transparent" },
     { id: "omziki", name: "Omziki", logo: distributorLogos.omziki, bgColor: "#000000" },
     { id: "ugatunes", name: "UgaTunes", logo: distributorLogos.ugatunes, bgColor: "#E91E8C" },
     { id: "kelele", name: "Kelele Digital", logo: distributorLogos.kelele, bgColor: "#2A2A2A" },
@@ -57,6 +102,22 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
     { id: "nft", name: "NFT/Token" },
     { id: "commercial", name: "Commercial Use" },
   ];
+
+  // Check if file meets distributor requirements
+  const checkRequirements = (distributorId) => {
+    const reqs = distributorRequirements[distributorId];
+    if (!reqs) return { met: true, missing: [] };
+    
+    const missing = [];
+    reqs.requirements.forEach(req => {
+      const value = file.metadata?.[req.field] || file[req.field];
+      if (!value) {
+        missing.push(req.label);
+      }
+    });
+    
+    return { met: missing.length === 0, missing };
+  };
 
   const handleToggle = (field, value) => {
     setLocalFile({ ...localFile, [field]: value });
@@ -213,32 +274,56 @@ const FileDetailPanel = ({ file, onClose, onUpdate, onDelete }) => {
                 <div className="grid grid-cols-2 gap-2">
                   {distributors.map((distributor) => {
                     const isSelected = selectedDistributors.includes(distributor.id);
+                    const reqCheck = checkRequirements(distributor.id);
+                    
                     return (
-                      <button
-                        key={distributor.id}
-                        onClick={() => toggleDistributor(distributor.id)}
-                        data-testid={`panel-distributor-${distributor.id}`}
-                        className={`flex items-center gap-2 p-2 rounded-xl border transition-all ${
-                          isSelected
-                            ? "border-[#00BFFF] bg-[#00BFFF]/10"
-                            : "border-[#8B5CF6]/20 hover:border-[#8B5CF6]/40"
-                        }`}
-                      >
-                        <div 
-                          className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0"
-                          style={{ backgroundColor: distributor.bgColor }}
-                        >
-                          <img 
-                            src={distributor.logo} 
-                            alt={distributor.name}
-                            className="w-6 h-6 object-contain"
-                          />
-                        </div>
-                        <span className="text-xs flex-1 text-left truncate">{distributor.name}</span>
-                        {isSelected && (
-                          <Check size={14} className="text-[#00BFFF] flex-shrink-0" weight="bold" />
-                        )}
-                      </button>
+                      <TooltipProvider key={distributor.id}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={() => toggleDistributor(distributor.id)}
+                              data-testid={`panel-distributor-${distributor.id}`}
+                              className={`relative flex items-center gap-2 p-2 rounded-xl border transition-all ${
+                                isSelected
+                                  ? "border-[#00BFFF] bg-[#00BFFF]/10"
+                                  : "border-[#8B5CF6]/20 hover:border-[#8B5CF6]/40"
+                              }`}
+                            >
+                              {/* Status indicator */}
+                              <div className="absolute -top-1 -right-1">
+                                {reqCheck.met ? (
+                                  <CheckCircle size={12} className="text-[#10B981]" weight="fill" />
+                                ) : (
+                                  <Warning size={12} className="text-yellow-500" weight="fill" />
+                                )}
+                              </div>
+                              
+                              <div 
+                                className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center flex-shrink-0"
+                                style={{ backgroundColor: distributor.bgColor }}
+                              >
+                                <img 
+                                  src={distributor.logo} 
+                                  alt={distributor.name}
+                                  className="w-6 h-6 object-contain"
+                                />
+                              </div>
+                              <span className="text-xs flex-1 text-left truncate">{distributor.name}</span>
+                              {isSelected && (
+                                <Check size={14} className="text-[#00BFFF] flex-shrink-0" weight="bold" />
+                              )}
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent className="bg-[#251E49] border-[#8B5CF6]/20">
+                            <p className="text-xs font-medium mb-1">{distributor.name}</p>
+                            {reqCheck.met ? (
+                              <p className="text-xs text-[#10B981]">All requirements met</p>
+                            ) : (
+                              <p className="text-xs text-yellow-500">Missing: {reqCheck.missing.join(", ")}</p>
+                            )}
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     );
                   })}
                 </div>

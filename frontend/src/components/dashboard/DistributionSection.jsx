@@ -4,9 +4,18 @@ import {
   Broadcast,
   MusicNote,
   Check,
-  Globe
+  Globe,
+  Warning,
+  CheckCircle,
+  Info
 } from "@phosphor-icons/react";
 import { toast } from "sonner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // Distributor logos
 const distributorLogos = {
@@ -16,11 +25,58 @@ const distributorLogos = {
   kelele: "https://customer-assets.emergentagent.com/job_ziki-artist-admin/artifacts/s9tywfmy_kelele.png",
 };
 
+// Distributor-specific metadata requirements
+const distributorRequirements = {
+  ziki_tunes: {
+    name: "Ziki Tunes",
+    requirements: [
+      { field: "isrc", label: "ISRC Code", required: true },
+      { field: "primary_artist", label: "Primary Artist", required: true },
+      { field: "genre", label: "Genre", required: true },
+      { field: "release_date", label: "Release Date", required: true },
+    ],
+    specs: "Minimum 320kbps MP3 or lossless WAV/FLAC. Cover art: 3000x3000px JPG",
+  },
+  omziki: {
+    name: "Omziki",
+    requirements: [
+      { field: "isrc", label: "ISRC Code", required: true },
+      { field: "upc", label: "UPC/EAN", required: true },
+      { field: "primary_artist", label: "Primary Artist", required: true },
+      { field: "label", label: "Record Label", required: true },
+      { field: "copyright_owner", label: "Copyright Owner", required: true },
+    ],
+    specs: "Lossless WAV/FLAC only. Cover art: 3000x3000px, no logos or text",
+  },
+  ugatunes: {
+    name: "UgaTunes",
+    requirements: [
+      { field: "isrc", label: "ISRC Code", required: true },
+      { field: "primary_artist", label: "Primary Artist", required: true },
+      { field: "genre", label: "Genre", required: true },
+      { field: "territories", label: "Territory Rights", required: true },
+    ],
+    specs: "Minimum 256kbps. Artist verification required for first release",
+  },
+  kelele: {
+    name: "Kelele Digital",
+    requirements: [
+      { field: "isrc", label: "ISRC Code", required: true },
+      { field: "upc", label: "UPC/EAN", required: true },
+      { field: "primary_artist", label: "Primary Artist", required: true },
+      { field: "producers", label: "Producer Credits", required: true },
+      { field: "writers", label: "Writer Credits", required: true },
+      { field: "copyright_owner", label: "Copyright Owner", required: true },
+    ],
+    specs: "WAV 24-bit/48kHz preferred. Distribution agreement required",
+  },
+};
+
 const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
   const [updating, setUpdating] = useState(false);
 
   const distributors = [
-    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "#0A1628" },
+    { id: "ziki_tunes", name: "Ziki Tunes", logo: distributorLogos.ziki_tunes, bgColor: "transparent" },
     { id: "omziki", name: "Omziki", logo: distributorLogos.omziki, bgColor: "#000000" },
     { id: "ugatunes", name: "UgaTunes", logo: distributorLogos.ugatunes, bgColor: "#E91E8C" },
     { id: "kelele", name: "Kelele Digital", logo: distributorLogos.kelele, bgColor: "#2A2A2A" },
@@ -29,9 +85,48 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
   const distributedFiles = files.filter(f => f.is_distributed);
   const undistributedFiles = files.filter(f => !f.is_distributed);
 
+  // Check if file meets distributor requirements
+  const checkRequirements = (file, distributorId) => {
+    const reqs = distributorRequirements[distributorId];
+    if (!reqs) return { met: true, missing: [] };
+    
+    const missing = [];
+    reqs.requirements.forEach(req => {
+      const value = file.metadata?.[req.field] || file[req.field];
+      if (req.required && !value) {
+        missing.push(req.label);
+      }
+    });
+    
+    return { met: missing.length === 0, missing };
+  };
+
   const handleDistribute = async (file, selectedDistributors) => {
     if (selectedDistributors.length === 0) {
       toast.error("Please select at least one distributor");
+      return;
+    }
+
+    // Check requirements for all selected distributors
+    const allMissing = [];
+    selectedDistributors.forEach(distId => {
+      const check = checkRequirements(file, distId);
+      if (!check.met) {
+        const distName = distributorRequirements[distId]?.name || distId;
+        allMissing.push(`${distName}: ${check.missing.join(", ")}`);
+      }
+    });
+
+    if (allMissing.length > 0) {
+      toast.error(
+        <div>
+          <p className="font-medium mb-1">Missing required metadata:</p>
+          {allMissing.map((m, i) => (
+            <p key={i} className="text-sm">{m}</p>
+          ))}
+        </div>,
+        { duration: 5000 }
+      );
       return;
     }
     
@@ -41,6 +136,7 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
         is_distributed: true,
         distribution_platforms: selectedDistributors
       });
+      toast.success("Distribution initiated successfully!");
     } catch (error) {
       // handled in parent
     } finally {
@@ -89,28 +185,49 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
         </div>
       </div>
 
-      {/* Distributors */}
+      {/* Distributors with Requirements */}
       <div className="bg-[#251E49] border border-[#8B5CF6]/15 rounded-2xl p-6">
-        <h2 className="text-lg font-semibold mb-4">Partner Distributors</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {distributors.map((distributor) => (
-            <div
-              key={distributor.id}
-              className="flex flex-col items-center gap-3 p-4 rounded-xl bg-[#0F0D1A] border border-[#8B5CF6]/15 hover:border-[#00BFFF]/30 transition-all"
-            >
+        <h2 className="text-lg font-semibold mb-4">Partner Distributors & Requirements</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {distributors.map((distributor) => {
+            const reqs = distributorRequirements[distributor.id];
+            return (
               <div
-                className="w-16 h-16 rounded-xl flex items-center justify-center overflow-hidden"
-                style={{ backgroundColor: distributor.bgColor }}
+                key={distributor.id}
+                className="flex gap-4 p-4 rounded-xl bg-[#0F0D1A] border border-[#8B5CF6]/15 hover:border-[#00BFFF]/30 transition-all"
               >
-                <img 
-                  src={distributor.logo} 
-                  alt={distributor.name}
-                  className="w-14 h-14 object-contain"
-                />
+                <div
+                  className="w-16 h-16 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0"
+                  style={{ backgroundColor: distributor.bgColor }}
+                >
+                  <img 
+                    src={distributor.logo} 
+                    alt={distributor.name}
+                    className="w-14 h-14 object-contain"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-medium mb-1">{distributor.name}</h3>
+                  <p className="text-xs text-zinc-500 mb-2">{reqs?.specs}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {reqs?.requirements.slice(0, 3).map((req, i) => (
+                      <span 
+                        key={i}
+                        className="text-[10px] px-1.5 py-0.5 rounded bg-[#8B5CF6]/10 text-[#8B5CF6]"
+                      >
+                        {req.label}
+                      </span>
+                    ))}
+                    {reqs?.requirements.length > 3 && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400">
+                        +{reqs.requirements.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
-              <span className="font-medium text-sm text-center">{distributor.name}</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -128,6 +245,7 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
                 onSelect={() => onSelectFile(file)}
                 updating={updating}
                 index={index}
+                checkRequirements={checkRequirements}
               />
             ))}
           </div>
@@ -161,13 +279,13 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
                       return (
                         <div 
                           key={p} 
-                          className="w-6 h-6 rounded overflow-hidden"
+                          className="w-6 h-6 rounded overflow-hidden flex items-center justify-center"
                           style={{ backgroundColor: distributor.bgColor }}
                         >
                           <img 
                             src={distributor.logo} 
                             alt={distributor.name}
-                            className="w-full h-full object-contain"
+                            className="w-5 h-5 object-contain"
                           />
                         </div>
                       );
@@ -197,7 +315,7 @@ const DistributionSection = ({ files, onUpdateFile, onSelectFile }) => {
   );
 };
 
-const DistributionCard = ({ file, distributors, onDistribute, onSelect, updating, index }) => {
+const DistributionCard = ({ file, distributors, onDistribute, onSelect, updating, index, checkRequirements }) => {
   const [expanded, setExpanded] = useState(false);
   const [selectedDistributors, setSelectedDistributors] = useState([]);
 
@@ -246,39 +364,98 @@ const DistributionCard = ({ file, distributors, onDistribute, onSelect, updating
           exit={{ height: 0, opacity: 0 }}
           className="border-t border-[#8B5CF6]/15 p-4"
         >
-          <p className="text-sm text-zinc-400 mb-4">Select distributors:</p>
+          <p className="text-sm text-zinc-400 mb-4">Select distributors (requirements checked automatically):</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
             {distributors.map((distributor) => {
               const isSelected = selectedDistributors.includes(distributor.id);
+              const reqCheck = checkRequirements(file, distributor.id);
+              const reqs = distributorRequirements[distributor.id];
+              
               return (
-                <button
-                  key={distributor.id}
-                  onClick={() => toggleDistributor(distributor.id)}
-                  data-testid={`distributor-${distributor.id}`}
-                  className={`flex flex-col items-center gap-2 p-3 rounded-xl border transition-all ${
-                    isSelected
-                      ? "border-[#00BFFF] bg-[#00BFFF]/10"
-                      : "border-[#8B5CF6]/20 hover:border-[#8B5CF6]/40"
-                  }`}
-                >
-                  <div 
-                    className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center"
-                    style={{ backgroundColor: distributor.bgColor }}
-                  >
-                    <img 
-                      src={distributor.logo} 
-                      alt={distributor.name}
-                      className="w-8 h-8 object-contain"
-                    />
-                  </div>
-                  <span className="text-xs font-medium">{distributor.name}</span>
-                  {isSelected && (
-                    <Check size={14} className="text-[#00BFFF]" weight="bold" />
-                  )}
-                </button>
+                <TooltipProvider key={distributor.id}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        onClick={() => toggleDistributor(distributor.id)}
+                        data-testid={`distributor-${distributor.id}`}
+                        className={`relative flex flex-col items-center gap-2 p-3 rounded-xl border transition-all ${
+                          isSelected
+                            ? "border-[#00BFFF] bg-[#00BFFF]/10"
+                            : "border-[#8B5CF6]/20 hover:border-[#8B5CF6]/40"
+                        }`}
+                      >
+                        {/* Requirement status indicator */}
+                        <div className="absolute top-2 right-2">
+                          {reqCheck.met ? (
+                            <CheckCircle size={14} className="text-[#10B981]" weight="fill" />
+                          ) : (
+                            <Warning size={14} className="text-yellow-500" weight="fill" />
+                          )}
+                        </div>
+                        
+                        <div 
+                          className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center"
+                          style={{ backgroundColor: distributor.bgColor }}
+                        >
+                          <img 
+                            src={distributor.logo} 
+                            alt={distributor.name}
+                            className="w-8 h-8 object-contain"
+                          />
+                        </div>
+                        <span className="text-xs font-medium">{distributor.name}</span>
+                        {isSelected && (
+                          <Check size={14} className="text-[#00BFFF]" weight="bold" />
+                        )}
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-[#251E49] border-[#8B5CF6]/20 max-w-xs">
+                      <div className="text-sm">
+                        <p className="font-medium mb-1">{distributor.name} Requirements:</p>
+                        <p className="text-xs text-zinc-400 mb-2">{reqs?.specs}</p>
+                        <div className="space-y-1">
+                          {reqs?.requirements.map((req, i) => {
+                            const value = file.metadata?.[req.field] || file[req.field];
+                            const hasValue = !!value;
+                            return (
+                              <div key={i} className="flex items-center gap-2 text-xs">
+                                {hasValue ? (
+                                  <CheckCircle size={12} className="text-[#10B981]" weight="fill" />
+                                ) : (
+                                  <Warning size={12} className="text-yellow-500" weight="fill" />
+                                )}
+                                <span className={hasValue ? "text-zinc-300" : "text-yellow-500"}>
+                                  {req.label}
+                                </span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               );
             })}
           </div>
+          
+          {/* Missing metadata warning */}
+          {selectedDistributors.length > 0 && (
+            <div className="mb-4">
+              {selectedDistributors.some(id => !checkRequirements(file, id).met) && (
+                <div className="flex items-start gap-2 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 text-sm">
+                  <Warning size={18} className="text-yellow-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-yellow-500 font-medium">Missing metadata for some distributors</p>
+                    <p className="text-zinc-400 text-xs mt-1">
+                      Edit this file in Archive to add the required metadata before distributing.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+          
           <button
             onClick={() => onDistribute(file, selectedDistributors)}
             disabled={updating || selectedDistributors.length === 0}
