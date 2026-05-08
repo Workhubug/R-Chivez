@@ -1,3 +1,10 @@
+Step 1: Go to this EXACT URL:
+
+https://github.com/Workhubug/R-Chivez/edit/main/frontend/package.json
+Step 2: Select ALL text (Ctrl+A) and DELETE everything
+
+Step 3: Paste this ENTIRE content:
+
 {
   "name": "frontend",
   "version": "0.1.0",
@@ -95,4 +102,3 @@
     "ajv-keywords": "5.1.0"
   }
 }
-
