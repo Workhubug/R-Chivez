@@ -1,0 +1,16 @@
+{
+  "short_name": "R-Chivez",
+  "name": "R-Chivez | Music IP Management",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#000000",
+  "background_color": "#0F0D1A"
+}
